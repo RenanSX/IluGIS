@@ -8,7 +8,7 @@
     <script src="js/sliderblx/jquery.bxslider.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
 
-    <!----TAB----->
+    <!----TAB- agora foi---->
  <%--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="css/estilo.css" />
     <script type="text/javascript" src="js/abas/javascript.js"></script>
