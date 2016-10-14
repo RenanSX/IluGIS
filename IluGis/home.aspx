@@ -1144,26 +1144,62 @@ document.write(
                  if ($("#<%=hfCodilumPK.ClientID %>").val() != "")
                  {                   
                      if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Curto") {
-                         $("#<%=txtProjBraco.ClientID %>").val("1.16");          
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("1.16");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("1.16");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
-                    else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio") {
-                        $("#<%=txtProjBraco.ClientID %>").val("2.92"); 
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("2.92");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("2.92");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
-                    else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado") {
-                        $("#<%=txtProjBraco.ClientID %>").val("3.85"); 
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("3.85");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("3.85");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
                      else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Longo") {
-                         $("#<%=txtProjBraco.ClientID %>").val("5.60");
-                         $("#<%=txtAltPoste.ClientID %>").val("12");
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("5.60");
+                             $("#<%=txtAltPoste.ClientID %>").val("12");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("5.60");
+                             $("#<%=txtAltPoste.ClientID %>").val("12");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
-                     else
-                     {
-                          setDefault();
-                          $("#<%=txtProjBraco.ClientID %>").val("");
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Especial") {
+                         $("#<%=ddlTipoPoste.ClientID %>").val("Metalico");
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                         $("#<%=txtProjBraco.ClientID %>").val("");
                      }
- 
-                 } else{
-                  }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Sem braco") {
+                         $("#<%=ddlTipoPoste.ClientID %>").val("Metalico")
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "-1") {
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                     }
+                 }
              });
 
             function fonteLuminosa(tipofontelum) {
@@ -1249,40 +1285,60 @@ document.write(
             });
 
 
+            $("#<%=ddlTipoRele.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoRele.ClientID %>").val() != "Integrado na luminaria")
+                { 
+                   if ($("#<%=ddlTipoReator.ClientID %>").val() == "Interno")
+                    {
+                        $("#<%=ddlTipoReator.ClientID %>").val("-1");
+                    }
+                }
+                else if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                { 
+                   if ($("#<%=ddlTipoReator.ClientID %>").val() == "Externo")
+                    {
+                        $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                   }
+                else if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                   {
+                       $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                   }
+                }
+                
+            });
 
+            $("#<%=ddlTipoReator.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoReator.ClientID %>").val() == "Interno")
+                {
+                    $("#<%=ddlTipoRele.ClientID %>").val("Integrado na luminaria");
+                }
+                else if ($("#<%=ddlTipoReator.ClientID %>").val() == "-1") {
+                    $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                }
+                else if ($("#<%=ddlTipoReator.ClientID %>").val() == "Externo") {
+                    if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                    {
+                        $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                    }
+                }
+            });
+
+            
 
             /*-------------------------Padrao para Tipo de braço ou poste com tipo de alimentação-------------------------*/
 
-            $("#<%=ddlTipoBraco.ClientID %>").change(function () {
-                if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Curto" || $("#<%=ddlTipoBraco.ClientID %>").val() == "Medio" || $("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado" || $("#<%=ddlTipoBraco.ClientID %>").val() == "Longo") {
-                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
-                    $("#<%=ddlTipoPoste.ClientID %>").val("-1");
-                }else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "-1"){
-                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
-                }
-            });
-
-            $("#<%=ddlTipoBraco.ClientID %>").change(function () {
-                if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Especial") {
-                    $("#<%=ddlTipoPoste.ClientID %>").val("Metalico");
-                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
-                }
-            });
+            
 
             $("#<%=ddlTipoPoste.ClientID %>").change(function () {
-                if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Duplo T" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto circular" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Madeira") {
+                if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Duplo T" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Circular" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Madeira") {
                     $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
                 } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Metalico") {
                     $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
-                } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "1") {
+                } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "-1") {
                     $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
                 }
             });
-
-
-
-
-            
+      
 
 
             /*---------------------------------Quantidade de Luminarias e quantidade de fontes luminosas-------------------------*/
@@ -1313,6 +1369,12 @@ document.write(
                 }
             });
  
+            $("#<%=ddlQtdeFonteLum.ClientID %>").change(function () {
+                if ($("#<%=ddlQtdeFonteLum.ClientID %>").val() < $("#<%=ddlQtdeLum.ClientID %>").val()) {
+                    $("#<%=ddlQtdeLum.ClientID %>").val("-1");
+                }
+            });
+
             /*************************************************************************************************************botao de dados padroes*/
 
  
