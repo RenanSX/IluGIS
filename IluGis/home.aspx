@@ -2126,7 +2126,8 @@ document.write(
         streets = L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr });
 
         
-
+        var ips = L.tileLayer('https://api.mapbox.com/styles/v1/aryacoletor/cisj1xgw800bf2xpbexbtfpkb/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJ5YWNvbGV0b3IiLCJhIjoiY2lzajFzZjN3MDF5aTJ1b2M0b25wZTl1byJ9.ZkPsVnXXgMrsW7DuZKGR6w');
+        
 
         var map = L.map('map', {
             layers: esri,
@@ -2179,8 +2180,10 @@ document.write(
         
         var baseMaps = {
             "OpenStreetMap": grayscale,
+            "Ips Arya": ips,
             "Streets": streets,
-            "Esri": esri     
+            "Esri": esri
+            
 
         };
         
