@@ -53,7 +53,8 @@
                         <li><a runat="server" href="home.aspx" id="linkHome" class="btn" role="button"><i class="fa fa-home"></i> Inicio</a></li>
                         <li><a runat="server" href="~/import.aspx" id="linkKML" class="btn" role="button"><i class="glyphicon glyphicon-download-alt"></i> Importar</a></li>                        
                         <li><a runat="server" href="register.aspx"  id="linkCadastro" class="btn"><i class="fa fa-gears"></i> Cadastrar usuário</a></li>                     
-                        <li><a runat="server" href="relatorios.aspx"  id="linkRelatorios" class="btn"><i class="glyphicon glyphicon-list-alt"></i> Relatórios</a></li>
+                        <li><a runat="server" href="gerenciamento.aspx"  id="linkRelatorios" class="btn"><i class="glyphicon glyphicon-list-alt"></i> Gerenciamento</a></li>
+                        <li><a runat="server" href="planejamento.aspx"  id="linkPlanejamento" class="btn"><i class="glyphicon glyphicon-briefcase"></i> Planejamento</a></li>
                         <li ><a href="logout.aspx" runat="server" id="linkSair" class="btn  disabled" onclick="DataHora()" >Sair</a></li>
                         
                     </ul>
