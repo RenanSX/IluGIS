@@ -155,6 +155,7 @@
     <Content Include="About.aspx" />
     <Content Include="AC_OETags.js" />
     <Content Include="Classes\service.asmx" />
+    <Content Include="css\button.css" />
     <Content Include="help.aspx" />
     <Content Include="img\Account\AddPhoneNumber.aspx" />
     <Content Include="img\Account\Confirm.aspx" />
