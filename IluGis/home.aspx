@@ -48,6 +48,13 @@
             from {opacity: 0;}
             to {opacity: 1;}
         }
+
+        .form-control2:focus {
+            border-color: red;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.3);
+            box-shadow: inset 0 1px 1px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.3);
+}
     </style>
     <script type="text/javascript">
        
@@ -1273,6 +1280,13 @@ document.write(
                     setDefault();
                 }
             }
+
+            $("#<%=ddlTipoBraco.ClientID %>").change(function () {
+                classe = document.getElementById('txtProjBraco').className;
+                if (classe == 'txtProjBraco') {
+                    document.getElementById('txtProjBraco').className = 'form-control2';
+                }
+            });
 
             /*-------------------------Padrao para o tipo e potencia de fonte luminosa--------------*/
             $("#<%=ddlTipoFonteLum.ClientID %>").change(function () {
