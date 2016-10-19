@@ -116,7 +116,7 @@ body {
                     <br />
                             <asp:DropDownList ID="ddlPermissao"  class=" form-control input-sm " runat="server"  autofocus="true">
                                 <asp:ListItem Text ="Selecione o tipo de permissão" Value = "-1"></asp:ListItem>
-                                 <asp:ListItem Text ="Adminstrador" Value = "-1"></asp:ListItem>
+                                 <asp:ListItem Text ="Adminstrador" Value = "0"></asp:ListItem>
                                  <asp:ListItem Text ="Usuário" Value = "1"></asp:ListItem>
                             </asp:DropDownList>
                     <asp:Label ID="LabelErroPermissao" runat="server" Text="" ></asp:Label> 
