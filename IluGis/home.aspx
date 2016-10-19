@@ -7,7 +7,7 @@
     <link href="js/sliderblx/jquery.bxslider.css" rel="stylesheet" />    
     <script src="js/sliderblx/jquery.bxslider.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
-
+     <link rel="stylesheet" type="text/css" href="css/button.css" />
     <!----TAB- agora foi---->
  <%--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="css/estilo.css" />
@@ -16,10 +16,10 @@
     <!------------------LEAFLET --------->
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-	<link rel="stylesheet" href="../dist/Leaflet.Coordinates-0.1.5.css"/>
+	<link rel="stylesheet" href="dist/Leaflet.Coordinates-0.1.5.css"/>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <%--<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
-    <script type="text/javascript" src="../dist/Leaflet.Coordinates-0.1.5.min.js"></script>
+    <script type="text/javascript" src="dist/Leaflet.Coordinates-0.1.5.min.js"></script>
 
     <script src="/dist/Leaflet-WFST.src.js"></script>
     <script src="src/L.TileLayer.BetterWMS.js"></script>
@@ -759,29 +759,37 @@
 <div class="row" id="controlmedicao">
     <div class="col-md-10 col-md-offset-1">
        <ul class="tab">
-          <li><a href="#" id="linkpoint" class="tablinks  btn disabled" onclick="openmedicao(event, '1')"><img src="lib/images/point.png" width="8" height="8" /></a></li>
-          <li><a href="#" id="linkline"  class="tablinks  btn disabled" onclick="openmedicao(event, '2')"><img src="lib/images/line.png" width="16" height="16" /></a></li>
-          <li><a href="#" id="linkpoly" class="tablinks  btn disabled" onclick="openmedicao(event, '3')"><img src="lib/images/poly.png" width="16" height="16" /></a></li>
-          <li><a href="#" id="playmedicao" class="tablinks"  onclick="enable()"><span class="glyphicon glyphicon-play-circle"></span></a></li>
+          <li><a href="#" id="linkpoint" class="tablinks alink  btn disabled" onclick="openmedicao(event, '1')"><img src="lib/images/point.png" width="8" height="8" /></a></li>
+          <li><a href="#" id="linkline"  class="tablinks alink  btn disabled" onclick="openmedicao(event, '2')"><img src="lib/images/line.png" width="16" height="16" /></a></li>
+          <li><a href="#" id="linkpoly" class="tablinks alink  btn disabled" onclick="openmedicao(event, '3')"><img src="lib/images/poly.png" width="16" height="16" /></a></li>
+          <li><a href="#" id="playmedicao" class="tablinks alink"  onclick="enable()"><span class="glyphicon glyphicon-play-circle"></span></a></li>
         </ul>
         
 
         <div id="featuregeo" class="tabcontent">
-            <div style="height:100%; width:100%; margin-bottom:5px;">                            
-                <label for="measurementList">Selecionar medição:</label>
+            <div style="height:100%; width:100%; margin-bottom:5px;"> 
+              
+                     <label for="measurementList">Selecionar medição:</label>
                     <select id="measurementList" onchange="selectMeasurement()" title="Selecionar medição" style="color:Black; width:7%;"></select>                              
-                                                                                
+                    <a href="#" class="myButton">Nova medição</a>
+                    <a href="#" class="myButton">Abrir</a>
+                    <a href="#" class="myButton">Fechar</a>                                                       
                     <input id="btnplus" class="btn btn-success btnMedicao" type="button" value="Criar feição" onclick="createPointMeasurement();" title="Criar feição"/>
                     <input type="button" id="btnopenponto" class="btn btn-default btnMedicao" onclick="openMeasurement();" value="Abrir" title="Abrir medição selecionada"/>                               
-                                 
+                
                     <input type="button" id="btncloseponto" class="btn btn-default btnMedicao" onclick="closeMeasurement();" value="Fechar" title="Fechar medição selecionada"/>
                     <div style="float:right;  width:22%;">
                     <input style="float:left;  " type="button" id="btnremoveponto" class="btn btn-danger btnMedicao" onclick="removeAllMeasurement();" value="Apagar medições"  title="Apagar todas as medição"/>
                     </div>
-                  <input checked="checked" type="checkbox" id="smartClickModeToggle" onClick="toggleSmartClickMode();"/>
-                    <label style="color:Black;"  class="tiny-label">Clique inteligente</label><br />
-                    <input checked="checked" type="checkbox" id="seriesModeToggle" onClick="toggleSeriesMode();" />
-                    <label style="color:Black;"  title="">Habilitar series  </label><br />                      
+
+                    <input checked="checked" type="checkbox" id="smartClickModeToggle" onClick="toggleSmartClickMode();"/>
+                     <label style="color:Black;"  class="tiny-label">Clique inteligente</label>
+                     <input checked="checked" type="checkbox" id="seriesModeToggle" onClick="toggleSeriesMode();" />
+                     <label style="color:Black;"  title="">Habilitar series  </label>
+
+                                     
+               
+                                      
 
             </div>
           
@@ -872,7 +880,8 @@ document.write(
 
         function enable()
         {
-            if (document.getElementById('linkpoint').className == "tablinks  btn disabled")
+           
+            if (document.getElementById('linkpoint').className == "tablinks alink  btn disabled")
             {
                 document.getElementById('playmedicao').style.backgroundColor = "#27282B";
                 document.getElementById('linkpoint').className = "tablinks";
@@ -886,9 +895,9 @@ document.write(
                     tabcontent[i].style.display = "none";
                 }
                 document.getElementById('playmedicao').style.backgroundColor = "#555557";
-                document.getElementById('linkpoint').className = "tablinks  btn disabled";
-                document.getElementById('linkline').className = "tablinks  btn disabled";
-                document.getElementById('linkpoly').className = "tablinks  btn disabled";
+                document.getElementById('linkpoint').className = "tablinks alink  btn disabled";
+                document.getElementById('linkline').className = "tablinks alink  btn disabled";
+                document.getElementById('linkpoly').className = "tablinks alink  btn disabled";
             }
             
         }
@@ -2126,7 +2135,11 @@ document.write(
         streets = L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr });
 
         
-        var ips = L.tileLayer('https://api.mapbox.com/styles/v1/aryacoletor/cisj1xgw800bf2xpbexbtfpkb/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJ5YWNvbGV0b3IiLCJhIjoiY2lzajFzZjN3MDF5aTJ1b2M0b25wZTl1byJ9.ZkPsVnXXgMrsW7DuZKGR6w');
+        var ips = L.tileLayer('https://api.mapbox.com/styles/v1/aryacoletor/cisj1xgw800bf2xpbexbtfpkb/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJ5YWNvbGV0b3IiLCJhIjoiY2lzajFzZjN3MDF5aTJ1b2M0b25wZTl1byJ9.ZkPsVnXXgMrsW7DuZKGR6w',
+        {
+            attribution: '&copy; <a target="blank" href="https://br.linkedin.com/in/joão-felipe-campos-villar-7207a826">João Villar</a> contributors',
+            maxZoom: 18
+        });
         
 
         var map = L.map('map', {
@@ -2135,7 +2148,7 @@ document.write(
         }).setView([-19.9246, -43.9614], 11);
 
 
-       // getPontos("TESTE");
+       
 
 
         var url = 'http://www.aryagis.com/arcgis/services/CLI008/16008A/MapServer/WMSServer';
@@ -2143,7 +2156,7 @@ document.write(
         var centro=L.tileLayer.betterWms(url, {
             layers: '1',
             transparent: true,
-            attribution: "<a target='_blank' href='http://www.aryamap.com'>Ortofoto</a>,Pedro o Lendário, João Gostoso e Renan Body Builder",
+            attribution: "<a target='_blank' href='http://www.aryamap.com'>Ortofoto</a>",
             format: 'image/png',
             tiled: true,
             maxZoom: 22
@@ -2200,43 +2213,7 @@ document.write(
 
         ///////////////////////////////////banco
 
-        function getPontos(prefix) {
-
-            $.ajax({
-                url: '<%=ResolveUrl("~/Classes/Service.asmx/GetIlu") %>',
-                type: "POST",
-                data: "{ 'prefix': '" + prefix + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    var parsed = $.parseJSON(data.d);
-
-                    var i = 0;
-                    $.each(parsed, function (i, jsondata) {
-                        if (jsondata.COD_ILUM_FK != "" || jsondata.COD_ILUM_FK != "NULL")
-                        {
-                            var LamMarker = L.marker([jsondata.Y, jsondata.X], { id: i,icon: greenIcon}).on('click', markerOnClick).addTo(map);
-                        }
-                        else
-                        {
-                            var LamMarker = L.marker([jsondata.Y, jsondata.X], { id: i, icon: redIcon }).on('click', markerOnClick).addTo(map);
-                        }
-                        i++;
-                        //marker1.push(LamMarker);
-                        ilum.addLayer(LamMarker);
-                       
-                        //tableProp += '<tr><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc;">' + jsondata.NOME + '</td ><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc; ">' + jsondata.CPF + '</td ><td style="white-space: nowrap;"><center><span style="cursor: pointer;" onClick="removeProp(' + jsondata.COD_PROPRIETARIO_PK + ',' + jsondata.COD_EMPRESA_PK + ',\'' + jsondata.CPF + '\')" class="glyphicon glyphicon-remove "></span></center></td></tr>';
-                    });                   
-                    map.addLayer(ilum);
-
-                },
-                error: function (XHR, errStatus, errorThrown) {
-                    var err = JSON.parse(XHR.responseText);
-                    errorMessage = err.Message;
-                    alert(errorMessage);
-                }
-            });
-        };
+        
 
         function markerOnClick(e) {
            
