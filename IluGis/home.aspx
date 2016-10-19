@@ -7,6 +7,8 @@
     <link href="js/sliderblx/jquery.bxslider.css" rel="stylesheet" />    
     <script src="js/sliderblx/jquery.bxslider.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+    <link href="css/button.css" rel="stylesheet" />
+
 
     <!----TAB- agora foi---->
  <%--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>--%>
@@ -19,7 +21,7 @@
 	<link rel="stylesheet" href="../dist/Leaflet.Coordinates-0.1.5.css"/>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <%--<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
-    <script type="text/javascript" src="../dist/Leaflet.Coordinates-0.1.5.min.js"></script>
+    <script type="text/javascript" src="/dist/Leaflet.Coordinates-0.1.5.min.js"></script>
 
     <script src="/dist/Leaflet-WFST.src.js"></script>
     <script src="src/L.TileLayer.BetterWMS.js"></script>
@@ -768,28 +770,27 @@
 
         <div id="featuregeo" class="tabcontent">
             <div style="height:100%; width:100%; margin-bottom:5px;">                            
-                <label for="measurementList">Selecionar medição:</label>
-                    <select id="measurementList" onchange="selectMeasurement()" title="Selecionar medição" style="color:Black; width:7%;"></select>                              
-                                                                                
-                    <input id="btnplus" class="btn btn-success btnMedicao" type="button" value="Criar feição" onclick="createPointMeasurement();" title="Criar feição"/>
-                    <input type="button" id="btnopenponto" class="btn btn-default btnMedicao" onclick="openMeasurement();" value="Abrir" title="Abrir medição selecionada"/>                               
-                                 
-                    <input type="button" id="btncloseponto" class="btn btn-default btnMedicao" onclick="closeMeasurement();" value="Fechar" title="Fechar medição selecionada"/>
-                    <div style="float:right;  width:22%;">
-                    <input style="float:left;  " type="button" id="btnremoveponto" class="btn btn-danger btnMedicao" onclick="removeAllMeasurement();" value="Apagar medições"  title="Apagar todas as medição"/>
-                    </div>
-                    <input type="checkbox" id="telaModeToggle" onClick="travar();"/>
-                    <label style="color:Black;"  class="tiny-label">Travar tela</label><br />                   
+                                   
             </div>
             <div style="width: 100%; display: inline-block; position: relative;">
-                    <div style="width: 30%; float: left">
-                    <input checked="checked" type="checkbox" id="smartClickModeToggle" onClick="toggleSmartClickMode();"/>
-                    <label style="color:Black;"  class="tiny-label">Clique inteligente</label><br />
-                    <input checked="checked" type="checkbox" id="seriesModeToggle" onClick="toggleSeriesMode();" />
-                    <label style="color:Black;"  title="">Habilitar series  </label><br />
+                    <div style="width: 50%; float: left">                      
+                    <select id="measurementList" onchange="selectMeasurement()" title="Selecionar medição" style="color:Black; width:10%;"></select>                        
+                    <a id="btnplus" href="javascript:void(0)" onclick="createPointMeasurement();" class="myButton" title="Iniciar uma nova medição">Nova medição</a>
+                    <a id="btnopenponto"href="javascript:void(0)" onclick="openMeasurement();" class="myButton"  title="Abrir medição selecionada">Abrir</a>
+                    <a id="btncloseponto" href="javascript:void(0)" onclick="closeMeasurement();" class="myButton"  title="Fechar medição selecionada">Fechar</a>
+                    <div style="float:right;  width:22%;">
+                         <input style="float:left;  " type="button" id="btnremoveponto" class="btn btn-danger btnMedicao" onclick="removeAllMeasurement();" value="Apagar"  title="Apagar todas as medição"/>
                     </div>
-                <div style="width: 60%; float: right">
-                    Div direita
+                        <br />
+                    <input type="checkbox" id="telaModeToggle" onClick="travar();"/>
+                        <label style="color:Black;"  class="tiny-label">Travar tela</label>
+                    <input checked="checked" type="checkbox" id="smartClickModeToggle" onClick="toggleSmartClickMode();"/>
+                        <label style="color:Black;"  class="tiny-label">Clique inteligente</label>
+                    <input checked="checked" type="checkbox" id="seriesModeToggle" onClick="toggleSeriesMode();" />
+                        <label style="color:Black;"  title="">Habilitar series  </label><br />
+                    </div>
+                <div style="width: 50%; float: right">
+                   
                 </div>
             </div>
             </div>
@@ -1936,7 +1937,7 @@ document.write(
           
 
             $(document).on('click', '#deletarInfo', function (e) {///FUNÇÃO PARA DELETAR DADOS DO POSTE
-                if ($('#<%=hfPermissao.ClientID%>').val() != "2")
+                if ($('#<%=hfPermissao.ClientID%>').val() != "1")
                 {
                     if(confirm("Tem certeza que deseja excluir esses dados?"))
                     $.ajax({
@@ -2228,7 +2229,7 @@ document.write(
         var centro=L.tileLayer.betterWms(url, {
             layers: '1',
             transparent: true,
-            attribution: "<a target='_blank' href='http://www.aryamap.com'>Ortofoto</a>,Pedro o Lendário, João Gostoso e Renan Body Builder",
+            attribution: "<a target='_blank' href='http://www.aryamap.com'>Ortofoto</a>",
             format: 'image/png',
             tiled: true,
             maxZoom: 22
