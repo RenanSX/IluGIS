@@ -7,7 +7,7 @@
     <link href="js/sliderblx/jquery.bxslider.css" rel="stylesheet" />    
     <script src="js/sliderblx/jquery.bxslider.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
-     <link rel="stylesheet" type="text/css" href="css/button.css" />
+
     <!----TAB- agora foi---->
  <%--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="css/estilo.css" />
@@ -16,10 +16,10 @@
     <!------------------LEAFLET --------->
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-	<link rel="stylesheet" href="dist/Leaflet.Coordinates-0.1.5.css"/>
+	<link rel="stylesheet" href="../dist/Leaflet.Coordinates-0.1.5.css"/>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <%--<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
-    <script type="text/javascript" src="dist/Leaflet.Coordinates-0.1.5.min.js"></script>
+    <script type="text/javascript" src="../dist/Leaflet.Coordinates-0.1.5.min.js"></script>
 
     <script src="/dist/Leaflet-WFST.src.js"></script>
     <script src="src/L.TileLayer.BetterWMS.js"></script>
@@ -644,7 +644,7 @@
 </div>
 </div>
 
-<!-------Inicioa Row 7 (UTM, numero poste, precisao, poste no prumo e poste com avaria----------------------------------------------------------------------->
+<!-------Inicio Row 7 (UTM, numero poste, precisao, poste no prumo e poste com avaria----------------------------------------------------------------------->
 
 <div class="row" id="linha-7" style="display:none">
 
@@ -759,41 +759,40 @@
 <div class="row" id="controlmedicao">
     <div class="col-md-10 col-md-offset-1">
        <ul class="tab">
-          <li><a href="#" id="linkpoint" class="tablinks alink  btn disabled" onclick="openmedicao(event, '1')"><img src="lib/images/point.png" width="8" height="8" /></a></li>
-          <li><a href="#" id="linkline"  class="tablinks alink  btn disabled" onclick="openmedicao(event, '2')"><img src="lib/images/line.png" width="16" height="16" /></a></li>
-          <li><a href="#" id="linkpoly" class="tablinks alink  btn disabled" onclick="openmedicao(event, '3')"><img src="lib/images/poly.png" width="16" height="16" /></a></li>
-          <li><a href="#" id="playmedicao" class="tablinks alink"  onclick="enable()"><span class="glyphicon glyphicon-play-circle"></span></a></li>
+          <li><a href="javascript:void(0)" id="linkpoint" class="tablinks  btn disabled" onclick="openmedicao(event, '1')"><img src="lib/images/point.png" width="8" height="8" /></a></li>
+          <li><a href="javascript:void(0)" id="linkline"  class="tablinks  btn disabled" onclick="openmedicao(event, '2')"><img src="lib/images/line.png" width="16" height="16" /></a></li>
+          <li><a href="javascript:void(0)" id="linkpoly" class="tablinks  btn disabled" onclick="openmedicao(event, '3')"><img src="lib/images/poly.png" width="16" height="16" /></a></li>
+          <li><a href="javascript:void(0)" id="playmedicao" class="tablinks" style="height: 26px;" onclick="enable()"><span class="glyphicon glyphicon-play-circle"></span></a></li>
         </ul>
         
 
         <div id="featuregeo" class="tabcontent">
-            <div style="height:100%; width:100%; margin-bottom:5px;"> 
-              
-                     <label for="measurementList">Selecionar medição:</label>
+            <div style="height:100%; width:100%; margin-bottom:5px;">                            
+                <label for="measurementList">Selecionar medição:</label>
                     <select id="measurementList" onchange="selectMeasurement()" title="Selecionar medição" style="color:Black; width:7%;"></select>                              
-                    <a href="#" class="myButton">Nova medição</a>
-                    <a href="#" class="myButton">Abrir</a>
-                    <a href="#" class="myButton">Fechar</a>                                                       
+                                                                                
                     <input id="btnplus" class="btn btn-success btnMedicao" type="button" value="Criar feição" onclick="createPointMeasurement();" title="Criar feição"/>
                     <input type="button" id="btnopenponto" class="btn btn-default btnMedicao" onclick="openMeasurement();" value="Abrir" title="Abrir medição selecionada"/>                               
-                
+                                 
                     <input type="button" id="btncloseponto" class="btn btn-default btnMedicao" onclick="closeMeasurement();" value="Fechar" title="Fechar medição selecionada"/>
                     <div style="float:right;  width:22%;">
                     <input style="float:left;  " type="button" id="btnremoveponto" class="btn btn-danger btnMedicao" onclick="removeAllMeasurement();" value="Apagar medições"  title="Apagar todas as medição"/>
                     </div>
-
-                    <input checked="checked" type="checkbox" id="smartClickModeToggle" onClick="toggleSmartClickMode();"/>
-                     <label style="color:Black;"  class="tiny-label">Clique inteligente</label>
-                     <input checked="checked" type="checkbox" id="seriesModeToggle" onClick="toggleSeriesMode();" />
-                     <label style="color:Black;"  title="">Habilitar series  </label>
-
-                                     
-               
-                                      
-
+                    <input type="checkbox" id="telaModeToggle" onClick="travar();"/>
+                    <label style="color:Black;"  class="tiny-label">Travar tela</label><br />                   
             </div>
-          
-        </div>
+            <div style="width: 100%; display: inline-block; position: relative;">
+                    <div style="width: 30%; float: left">
+                    <input checked="checked" type="checkbox" id="smartClickModeToggle" onClick="toggleSmartClickMode();"/>
+                    <label style="color:Black;"  class="tiny-label">Clique inteligente</label><br />
+                    <input checked="checked" type="checkbox" id="seriesModeToggle" onClick="toggleSeriesMode();" />
+                    <label style="color:Black;"  title="">Habilitar series  </label><br />
+                    </div>
+                <div style="width: 60%; float: right">
+                    Div direita
+                </div>
+            </div>
+            </div>
 
        <div id="divPontoInfo">
 
@@ -811,7 +810,7 @@
            
            
  <!--------Inicio Row Globespotter e fotos-------------------------------------------------->                  
-<div class="row" style="margin-bottom:2px;">
+<div id="globespotter_fotos" class="row" style="margin-bottom:2px; overflow:hidden;">
 <div class="col-md-5 col-md-offset-1">
 <div id="flashDiv"  style="height:530px;width:100%;">
 
@@ -866,6 +865,16 @@ document.write(
     
     <script>
         
+        function travar() {
+            if (telaModeToggle.checked) {
+                $(document).bind('scroll', function () {
+                    window.scroll(0, 410);
+                });
+            } else {
+                $(document).unbind('scroll');
+                $('globespotter_fotos').css({ 'overflow': 'visible' });
+            }
+            }
 
         function isPostBack() { //function to check if page is a postback-ed one
             return document.getElementById('_ispostback').value;
@@ -880,10 +889,10 @@ document.write(
 
         function enable()
         {
-           
-            if (document.getElementById('linkpoint').className == "tablinks alink  btn disabled")
+            if (document.getElementById('linkpoint').className == "tablinks  btn disabled")
             {
                 document.getElementById('playmedicao').style.backgroundColor = "#27282B";
+                document.getElementById('playmedicao').style.height = "26px";
                 document.getElementById('linkpoint').className = "tablinks";
                 document.getElementById('linkline').className = "tablinks";
                 document.getElementById('linkpoly').className = "tablinks";
@@ -895,9 +904,9 @@ document.write(
                     tabcontent[i].style.display = "none";
                 }
                 document.getElementById('playmedicao').style.backgroundColor = "#555557";
-                document.getElementById('linkpoint').className = "tablinks alink  btn disabled";
-                document.getElementById('linkline').className = "tablinks alink  btn disabled";
-                document.getElementById('linkpoly').className = "tablinks alink  btn disabled";
+                document.getElementById('linkpoint').className = "tablinks  btn disabled";
+                document.getElementById('linkline').className = "tablinks  btn disabled";
+                document.getElementById('linkpoly').className = "tablinks  btn disabled";
             }
             
         }
@@ -1145,6 +1154,11 @@ document.write(
                 
              });
 
+            function valida() {
+                if ($("#<%=ddlTipoBraco.ClientID %>").val() == "1" || $("#<%=ddlTipoBraco.ClientID %>").val() == "NULL" || $("#<%=ddlTipoBraco.ClientID %>").val() == null) {
+
+                }
+            }
 
             /*----------------------------------Padrão tipo de braço e projeção do braço------------*/
  
@@ -1153,26 +1167,62 @@ document.write(
                  if ($("#<%=hfCodilumPK.ClientID %>").val() != "")
                  {                   
                      if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Curto") {
-                         $("#<%=txtProjBraco.ClientID %>").val("1.16");          
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("1.16");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("1.16");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
-                    else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio") {
-                        $("#<%=txtProjBraco.ClientID %>").val("2.92"); 
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("2.92");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("2.92");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
-                    else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado") {
-                        $("#<%=txtProjBraco.ClientID %>").val("3.85"); 
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("3.85");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("3.85");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
                      else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Longo") {
-                         $("#<%=txtProjBraco.ClientID %>").val("5.60");
-                         $("#<%=txtAltPoste.ClientID %>").val("12");
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("5.60");
+                             $("#<%=txtAltPoste.ClientID %>").val("12");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("5.60");
+                             $("#<%=txtAltPoste.ClientID %>").val("12");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
                      }
-                     else
-                     {
-                          setDefault();
-                          $("#<%=txtProjBraco.ClientID %>").val("");
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Especial") {
+                         $("#<%=ddlTipoPoste.ClientID %>").val("Metalico");
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                         $("#<%=txtProjBraco.ClientID %>").val("");
                      }
- 
-                 } else{
-                  }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Sem braco") {
+                         $("#<%=ddlTipoPoste.ClientID %>").val("Metalico")
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "-1") {
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                     }
+                 }
              });
 
             function fonteLuminosa(tipofontelum) {
@@ -1258,40 +1308,60 @@ document.write(
             });
 
 
+            $("#<%=ddlTipoRele.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoRele.ClientID %>").val() != "Integrado na luminaria")
+                { 
+                   if ($("#<%=ddlTipoReator.ClientID %>").val() == "Interno")
+                    {
+                        $("#<%=ddlTipoReator.ClientID %>").val("-1");
+                    }
+                }
+                else if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                { 
+                   if ($("#<%=ddlTipoReator.ClientID %>").val() == "Externo")
+                    {
+                        $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                   }
+                else if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                   {
+                       $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                   }
+                }
+                
+            });
 
+            $("#<%=ddlTipoReator.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoReator.ClientID %>").val() == "Interno")
+                {
+                    $("#<%=ddlTipoRele.ClientID %>").val("Integrado na luminaria");
+                }
+                else if ($("#<%=ddlTipoReator.ClientID %>").val() == "-1") {
+                    $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                }
+                else if ($("#<%=ddlTipoReator.ClientID %>").val() == "Externo") {
+                    if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                    {
+                        $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                    }
+                }
+            });
+
+            
 
             /*-------------------------Padrao para Tipo de braço ou poste com tipo de alimentação-------------------------*/
 
-            $("#<%=ddlTipoBraco.ClientID %>").change(function () {
-                if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Curto" || $("#<%=ddlTipoBraco.ClientID %>").val() == "Medio" || $("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado" || $("#<%=ddlTipoBraco.ClientID %>").val() == "Longo") {
-                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
-                    $("#<%=ddlTipoPoste.ClientID %>").val("-1");
-                }else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "-1"){
-                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
-                }
-            });
-
-            $("#<%=ddlTipoBraco.ClientID %>").change(function () {
-                if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Especial") {
-                    $("#<%=ddlTipoPoste.ClientID %>").val("Metalico");
-                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
-                }
-            });
+            
 
             $("#<%=ddlTipoPoste.ClientID %>").change(function () {
-                if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Duplo T" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto circular" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Madeira") {
+                if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Duplo T" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Circular" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Madeira") {
                     $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
                 } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Metalico") {
                     $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
-                } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "1") {
+                } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "-1") {
                     $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
                 }
             });
-
-
-
-
-            
+      
 
 
             /*---------------------------------Quantidade de Luminarias e quantidade de fontes luminosas-------------------------*/
@@ -1322,6 +1392,12 @@ document.write(
                 }
             });
  
+            $("#<%=ddlQtdeFonteLum.ClientID %>").change(function () {
+                if ($("#<%=ddlQtdeFonteLum.ClientID %>").val() < $("#<%=ddlQtdeLum.ClientID %>").val()) {
+                    $("#<%=ddlQtdeLum.ClientID %>").val("-1");
+                }
+            });
+
             /*************************************************************************************************************botao de dados padroes*/
 
  
@@ -2135,11 +2211,7 @@ document.write(
         streets = L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr });
 
         
-        var ips = L.tileLayer('https://api.mapbox.com/styles/v1/aryacoletor/cisj1xgw800bf2xpbexbtfpkb/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJ5YWNvbGV0b3IiLCJhIjoiY2lzajFzZjN3MDF5aTJ1b2M0b25wZTl1byJ9.ZkPsVnXXgMrsW7DuZKGR6w',
-        {
-            attribution: '&copy; <a target="blank" href="https://br.linkedin.com/in/joão-felipe-campos-villar-7207a826">João Villar</a> contributors',
-            maxZoom: 18
-        });
+        var ips = L.tileLayer('https://api.mapbox.com/styles/v1/aryacoletor/cisj1xgw800bf2xpbexbtfpkb/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJ5YWNvbGV0b3IiLCJhIjoiY2lzajFzZjN3MDF5aTJ1b2M0b25wZTl1byJ9.ZkPsVnXXgMrsW7DuZKGR6w');
         
 
         var map = L.map('map', {
@@ -2148,7 +2220,7 @@ document.write(
         }).setView([-19.9246, -43.9614], 11);
 
 
-       
+       // getPontos("TESTE");
 
 
         var url = 'http://www.aryagis.com/arcgis/services/CLI008/16008A/MapServer/WMSServer';
@@ -2156,7 +2228,7 @@ document.write(
         var centro=L.tileLayer.betterWms(url, {
             layers: '1',
             transparent: true,
-            attribution: "<a target='_blank' href='http://www.aryamap.com'>Ortofoto</a>",
+            attribution: "<a target='_blank' href='http://www.aryamap.com'>Ortofoto</a>,Pedro o Lendário, João Gostoso e Renan Body Builder",
             format: 'image/png',
             tiled: true,
             maxZoom: 22
@@ -2186,7 +2258,16 @@ document.write(
             shadowAnchor: [4, 40],  // the same for the shadow
             popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
+        var blueIcon = L.icon({
+            iconUrl: 'lib/images/ckpoint_azul.png',
+            shadowUrl: 'lib/images/marker-shadow.png',
 
+            iconSize: [20, 35], // size of the icon
+            shadowSize: [25, 40], // size of the shadow
+            iconAnchor: [20, 35], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 40],  // the same for the shadow
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
 
         //////////////////////
       
@@ -2213,16 +2294,65 @@ document.write(
 
         ///////////////////////////////////banco
 
-        
+        function getPontos(prefix) {
+
+            $.ajax({
+                url: '<%=ResolveUrl("~/Classes/Service.asmx/GetIlu") %>',
+                type: "POST",
+                data: "{ 'prefix': '" + prefix + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var parsed = $.parseJSON(data.d);
+
+                    var i = 0;
+                    $.each(parsed, function (i, jsondata) {
+                        if (jsondata.COD_ILUM_FK != "" || jsondata.COD_ILUM_FK != "NULL")
+                        {
+                            var LamMarker = L.marker([jsondata.Y, jsondata.X], { id: i, icon: greenIcon }).on('click', markerOnClick).addTo(map);
+                        }
+                        else
+                        {
+                            var LamMarker = L.marker([jsondata.Y, jsondata.X], { id: i, icon: redIcon }).on('click', markerOnClick).addTo(map);
+                        }
+                        i++;
+                        //marker1.push(LamMarker);
+                        ilum.addLayer(LamMarker);
+                       
+                        //tableProp += '<tr><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc;">' + jsondata.NOME + '</td ><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc; ">' + jsondata.CPF + '</td ><td style="white-space: nowrap;"><center><span style="cursor: pointer;" onClick="removeProp(' + jsondata.COD_PROPRIETARIO_PK + ',' + jsondata.COD_EMPRESA_PK + ',\'' + jsondata.CPF + '\')" class="glyphicon glyphicon-remove "></span></center></td></tr>';
+                    });                   
+                    map.addLayer(ilum);
+
+                },
+                error: function (XHR, errStatus, errorThrown) {
+                    var err = JSON.parse(XHR.responseText);
+                    errorMessage = err.Message;
+                    alert(errorMessage);
+                }
+            });
+        };
 
         function markerOnClick(e) {
            
             var latlong= convertUTM(lista[this.options.id][2],lista[this.options.id][3]);
            
             selectIluminacao(lista[this.options.id][0], lista[this.options.id][1], latlong[1], latlong[0], lista[this.options.id][4]);
+
+            $('#<%=txtCodIluminacao.ClientID%>').val(lista[this.options.id][0]);
+
+
+            var LamMarker = L.marker([lista[this.options.id][2], lista[this.options.id][3]], { icon: blueIcon }).on('click', function () {this.setIcon(blueIcon);}).addTo(map);
             
-            // alert("Ta vendo é por que ta funcionando." + this.options.id + " MISERAVIII " + e.latlng);
-        }
+
+            //alert(lista[this.options.id][3] + " eita " + lista[this.options.id][2]);
+            //LamMarker.setIcon(blueIcon);
+            alert("carai");
+           // alert("Ta vendo é por que ta funcionando." + this.options.id + " MISERAVIII " + e.latlng);
+            
+        } ilum.addLayer(LamMarker);
+        
+
+
         function onClick(e) {
             
             
@@ -2366,6 +2496,243 @@ document.write(
             }
 
 
+        /*----------------------------------Padrão tipo de braço e projeção do braço------------*/
+ 
+             $("#<%=ddlTipoBraco.ClientID %>").change(function () {
+                
+                 if ($("#<%=hfCodilumPK.ClientID %>").val() != "")
+                 {                   
+                     if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Curto") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("1.16");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("1.16");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("2.92");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("2.92");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Medio Pesado") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("3.85");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("3.85");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Longo") {
+                         if ($("#<%=ddlTipoPoste.ClientID %>").val() != "Metalico") {
+                             $("#<%=txtProjBraco.ClientID %>").val("5.60");
+                             $("#<%=txtAltPoste.ClientID %>").val("12");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                         }else {
+                             $("#<%=txtProjBraco.ClientID %>").val("5.60");
+                             $("#<%=txtAltPoste.ClientID %>").val("12");
+                             $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                             $("#<%=ddlTipoPoste.ClientID %>").val("-1");
+                         }
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Especial") {
+                         $("#<%=ddlTipoPoste.ClientID %>").val("Metalico");
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "Sem braco") {
+                         $("#<%=ddlTipoPoste.ClientID %>").val("Metalico")
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                     }
+                     else if ($("#<%=ddlTipoBraco.ClientID %>").val() == "-1") {
+                         $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
+                         $("#<%=txtProjBraco.ClientID %>").val("");
+                     }
+                 }
+             });
+
+            function fonteLuminosa(tipofontelum) {
+                 if (tipofontelum == "Sodio") {
+                    $("#<%=ddlPotFonteLum.ClientID %>").empty().append($("<option></option>").val("-1").html("Potência da fonte luminosa (W)"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("70").html("70W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("100").html("100W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("150").html("150W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("250").html("250W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("400").html("400W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").val("-1");
+                } 
+                else if (tipofontelum == "Mercurio") {
+                    $("#<%=ddlPotFonteLum.ClientID %>").empty().append($("<option></option>").val("-1").html("Potência da fonte luminosa (W)"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("80").html("80W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("125").html("125W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("250").html("250W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("400").html("400W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").val("-1");
+                }
+                else if (tipofontelum == "Metalico") {
+                    $("#<%=ddlPotFonteLum.ClientID %>").empty().append($("<option></option>").val("-1").html("Potência da fonte luminosa (W)"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("35").html("35W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("70W").html("70W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("150W").html("150W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").val("-1");
+                } else if (tipofontelum == "Led" || tipofontelum == "-1") {
+                    $("#<%=ddlPotFonteLum.ClientID %>").empty().append($("<option></option>").val("-1").html("Potência da fonte luminosa (W)"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("6").html("6W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("35").html("35W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("40").html("40W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("54").html("54W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("55").html("55W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("58").html("58W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("70").html("70W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("80").html("80W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("86").html("86W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("100").html("100W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("125").html("125W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("127").html("127W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("150").html("150W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("250").html("250W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("350").html("350W"));
+                    $("#<%=ddlPotFonteLum.ClientID %>").append($("<option></option>").val("400").html("400W"));
+                }
+                else {
+                    setDefault();
+                }
+            }
+
+            /*-------------------------Padrao para o tipo e potencia de fonte luminosa--------------*/
+            $("#<%=ddlTipoFonteLum.ClientID %>").change(function () {
+                fonteLuminosa($("#<%=ddlTipoFonteLum.ClientID %>").val());
+            });
+
+             /*-------------------------------------Tipo relé e tipo reator baseado no tipo de luminária---------------------------*/
+             $("#<%=ddlTipoLum.ClientID %>").change(function () {
+                 if ($("#<%=ddlTipoLum.ClientID %>").val() == "Integrada policarbonato" || $("#<%=ddlTipoLum.ClientID %>").val() == "Integrada vidro")
+                 {
+                     $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                     $("#<%=ddlTipoRele.ClientID %>").val("Integrado na luminaria");
+                 } else if ($("#<%=ddlTipoLum.ClientID %>").val() == "-1") {
+                     $("#<%=ddlTipoReator.ClientID %>").val("-1");
+                     $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                 }
+             });
+
+            $("#<%=ddlTipoLum.ClientID %>").change(function() {
+                if ($("#<%=ddlTipoLum.ClientID %>").val() == "Corpo unico aberta" || $("#<%=ddlTipoLum.ClientID %>").val() == "Corpo unico fechada com vidro" || $("#<%=ddlTipoLum.ClientID %>").val() == "Corpo unico fechada com policarbonato") {
+                     $("#<%=ddlTipoReator.ClientID %>").val("Externo");
+                     $("#<%=ddlTipoRele.ClientID %>").val("No poste");
+                }   
+            });
+ 
+            $("#<%=ddlTipoLum.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoLum.ClientID %>").val() == "Petalar" || $("#<%=ddlTipoLum.ClientID %>").val() == "Outros") {
+                    $("#<%=ddlTipoReator.ClientID %>").val("-1");
+                    $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                } else if ($("#<%=ddlTipoLum.ClientID %>").val() == "Decorativa esferica" || $("#<%=ddlTipoLum.ClientID %>").val() == "Decorativa semi-esférica") {
+                    $("#<%=ddlTipoReator.ClientID %>").val("-1");
+                    $("#<%=ddlTipoRele.ClientID %>").val("Comando em grupo");
+                }
+            });
+
+
+            $("#<%=ddlTipoRele.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoRele.ClientID %>").val() != "Integrado na luminaria")
+                { 
+                   if ($("#<%=ddlTipoReator.ClientID %>").val() == "Interno")
+                    {
+                        $("#<%=ddlTipoReator.ClientID %>").val("-1");
+                    }
+                }
+                else if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                { 
+                   if ($("#<%=ddlTipoReator.ClientID %>").val() == "Externo")
+                    {
+                        $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                   }
+                else if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                   {
+                       $("#<%=ddlTipoReator.ClientID %>").val("Interno");
+                   }
+                }
+                
+            });
+
+            $("#<%=ddlTipoReator.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoReator.ClientID %>").val() == "Interno")
+                {
+                    $("#<%=ddlTipoRele.ClientID %>").val("Integrado na luminaria");
+                }
+                else if ($("#<%=ddlTipoReator.ClientID %>").val() == "-1") {
+                    $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                }
+                else if ($("#<%=ddlTipoReator.ClientID %>").val() == "Externo") {
+                    if ($("#<%=ddlTipoRele.ClientID %>").val() == "Integrado na luminaria")
+                    {
+                        $("#<%=ddlTipoRele.ClientID %>").val("-1");
+                    }
+                }
+            });
+
+            
+
+            /*-------------------------Padrao para Tipo de braço ou poste com tipo de alimentação-------------------------*/
+
+            
+
+            $("#<%=ddlTipoPoste.ClientID %>").change(function () {
+                if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Duplo T" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Concreto Circular" || $("#<%=ddlTipoPoste.ClientID %>").val() == "Madeira") {
+                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("Aereo");
+                } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "Metalico") {
+                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("Subterraneo");
+                } else if ($("#<%=ddlTipoPoste.ClientID %>").val() == "-1") {
+                    $("#<%=ddlTipoAlimentacao.ClientID %>").val("-1");
+                }
+            });
+      
+
+
+            /*---------------------------------Padrao Quantidade de Luminarias e quantidade de fontes luminosas-------------------------*/
+
+            $("#<%=ddlQtdeLum.ClientID %>").change(function () {
+                if ($("#<%=ddlQtdeLum.ClientID %>").val() == "-1") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("-1");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "1") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("1");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "2") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("2");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "3") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("3");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "4") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("4");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "5") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("5");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "6") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("6");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "7") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("7");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "8") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("8");
+                }else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "9") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("9");
+                } else if ($("#<%=ddlQtdeLum.ClientID %>").val() == "10") {
+                    $("#<%=ddlQtdeFonteLum.ClientID %>").val("10");
+                }
+            });
+ 
+            $("#<%=ddlQtdeFonteLum.ClientID %>").change(function () {
+                if ($("#<%=ddlQtdeFonteLum.ClientID %>").val() < $("#<%=ddlQtdeLum.ClientID %>").val()) {
+                    $("#<%=ddlQtdeLum.ClientID %>").val("-1");
+                }
+            });
             
             /////////////////////////////////////////////////////setar dados iluminacao nos campos
            
@@ -2384,6 +2751,7 @@ document.write(
                 }
 
                 if (tipofontelum != "NULL" && tipofontelum != undefined && tipofontelum != "undefined" && tipofontelum != null) {
+                    fonteLuminosa(tipofontelum);
                     $('#<%=ddlTipoFonteLum.ClientID%>').val(tipofontelum);
                 }
 
@@ -2555,16 +2923,10 @@ document.write(
                      $('#<%=Malerta.ClientID%>').fadeOut();
                      $('#<%=Merro.ClientID%>').fadeOut();
 
-                 }, 3000);
-                     
-                  
+                 }, 3000);       
 
             }
-    
-
-        
 
     </script>
-   
-   
+    
 </asp:Content>

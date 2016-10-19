@@ -10,7 +10,7 @@
 namespace IluGis {
     
     
-    public partial class relatorios {
+    public partial class gerenciamento {
         
         /// <summary>
         /// form1 control.
