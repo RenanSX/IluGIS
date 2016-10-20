@@ -2361,7 +2361,7 @@ document.write(
            
             selectIluminacao(lista[this.options.id][0], lista[this.options.id][1], latlong[1], latlong[0], lista[this.options.id][4]);
 
-
+            //seta iluminacao
             $('#<%=txtCodIluminacao.ClientID%>').val(lista[this.options.id][0]);
 
             var layer = e.target;
