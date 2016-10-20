@@ -2361,17 +2361,14 @@ document.write(
 
             //alert(lista[this.options.id][3] + " eita " + lista[this.options.id][2]);
             //LamMarker.setIcon(blueIcon);
-            alert("carai");
+           
            // alert("Ta vendo é por que ta funcionando." + this.options.id + " MISERAVIII " + e.latlng);
             
-        } ilum.addLayer(LamMarker);
+        } 
         
 
 
-        function onClick(e) {
-            
-            
-        }
+       
         L.control.coordinates().addTo(map);
         function setDefault()
              {
