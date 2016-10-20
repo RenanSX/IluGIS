@@ -381,7 +381,7 @@
 </div>
 
 <div ID="projecaobraco" class="col-md-2 col-sm-2" style="margin-bottom: 8px">
-<asp:TextBox runat="server" type="text" id="txtProjBraco" title="Projeção de Braço (em M)" class="form-control  " style="width: 82%; display:inline-block;" placeholder="Projeção de Braço (em M)" ></asp:TextBox>
+<asp:TextBox runat="server" type="text" ID="txtProjBraco" title="Projeção de Braço (em M)" class="form-control  " style="width: 82%; display:inline-block;" placeholder="Projeção de Braço (em M)" ></asp:TextBox>
 <a runat="server" href="help.aspx#projecao_do_braco" target="_blank">
 <span class="glyphicon glyphicon-question-sign" title="Ajuda"  style="font-size: 18px"></span>
 </a>
@@ -747,6 +747,7 @@
 
  <div ID="observacao" class="col-md-4 col-sm-4" style="margin-bottom: 8px">
 <asp:TextBox Style="width: 92%" type="text" placeholder="Observação" class="form-control input-sm" ID="txtObservacao" title="Observação" runat="server" name="Observacao"></asp:TextBox>
+<input type="button" name="button" id="button" onclick="validaForm()" value="OK" />
 </div>
 
 <div class="col-md-2 col-sm-2">
@@ -817,7 +818,8 @@
 
            
            
- <!--------Inicio Row Globespotter e fotos-------------------------------------------------->                  
+ <!--------Inicio Row Globespotter e fotos--------------------------------------------------> 
+                           
 <div id="globespotter_fotos" class="row" style="margin-bottom:2px; overflow:hidden;">
 <div class="col-md-5 col-md-offset-1">
 <div id="flashDiv"  style="height:530px;width:100%;">
@@ -873,6 +875,16 @@ document.write(
     
     <script>
         
+        
+        function validaForm(){            
+            //   .style.backgroundColor = "red";
+            if ( $("#<%=txtProjBraco.ClientID %>").val() == "") {
+                $("#<%=txtProjBraco.ClientID %>").css("borderColor", "#ff0000");
+
+                //document.getElementById('txtProjBraco').focus();
+            }
+}
+
         function travar() {
             if (telaModeToggle.checked) {
                 $(document).bind('scroll', function () {
