@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace IluGis
 {
-    public partial class relatorios : System.Web.UI.Page
+    public partial class gerenciamento1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

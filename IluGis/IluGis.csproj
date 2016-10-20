@@ -156,6 +156,7 @@
     <Content Include="AC_OETags.js" />
     <Content Include="Classes\service.asmx" />
     <Content Include="css\button.css" />
+    <Content Include="gerenciamento.aspx" />
     <Content Include="help.aspx" />
     <Content Include="img\Account\AddPhoneNumber.aspx" />
     <Content Include="img\Account\Confirm.aspx" />
@@ -383,7 +384,6 @@
     <Content Include="planejamento.aspx" />
     <Content Include="playerProductInstall.swf" />
     <Content Include="register.aspx" />
-    <Content Include="gerenciamento.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -442,6 +442,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\validacao.cs" />
+    <Compile Include="gerenciamento.aspx.cs">
+      <DependentUpon>gerenciamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="gerenciamento.aspx.designer.cs">
+      <DependentUpon>gerenciamento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="help.aspx.cs">
       <DependentUpon>help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -619,13 +626,6 @@
     </Compile>
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="gerenciamento.aspx.cs">
-      <DependentUpon>gerenciamento.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="gerenciamento.aspx.designer.cs">
-      <DependentUpon>gerenciamento.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

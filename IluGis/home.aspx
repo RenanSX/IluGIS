@@ -49,11 +49,8 @@
             to {opacity: 1;}
         }
 
-        .form-control2:focus {
-            border-color: red;
-            outline: 0;
-            -webkit-box-shadow: inset 0 1px 1px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.3);
-            box-shadow: inset 0 1px 1px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.3);
+        .error {
+        border:2px solid red;
 }
     </style>
     <script type="text/javascript">
@@ -366,7 +363,7 @@
 <div class="row" id="linha-1">
 
 <div ID="tipobraco" title="Tipo de braço" class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-1" style="margin-bottom: 8px">
-<asp:DropDownList  Style="width: 82%; display:inline-block;" ID="ddlTipoBraco" class=" form-control input-sm " runat="server"  autofocus="true">
+<asp:DropDownList  Style="width: 82%; display:inline-block;" ID="ddlTipoBraco" for="inputError" class=" form-control input-sm " runat="server"  autofocus="true">
 <asp:ListItem Text ="Tipo de braço" Value = "-1"></asp:ListItem>
 <asp:ListItem Text ="Curto" Value = "Curto"></asp:ListItem>   
 <asp:ListItem Text ="Médio" Value = "Medio"></asp:ListItem>
@@ -872,7 +869,7 @@ document.write(
 </div>
     
     <script>
-        
+
         function travar() {
             if (telaModeToggle.checked) {
                 $(document).bind('scroll', function () {
@@ -1282,10 +1279,7 @@ document.write(
             }
 
             $("#<%=ddlTipoBraco.ClientID %>").change(function () {
-                classe = document.getElementById('txtProjBraco').className;
-                if (classe == 'txtProjBraco') {
-                    document.getElementById('txtProjBraco').className = 'form-control2';
-                }
+                    document.getElementById('ddlTipoBraco').className = "form-control2";
             });
 
             /*-------------------------Padrao para o tipo e potencia de fonte luminosa--------------*/
@@ -1474,8 +1468,8 @@ document.write(
             });
 
             $("#btncomunrodovia").click(function () {// icone que habilita opções de medição
-                limpa();
                 setDefault();
+                $("#<%=txtProjBraco.ClientID %>").val("");
                 $("#<%=ddlTipoBraco.ClientID %>").val("Especial");                
                 $("#<%=txtAltPoste.ClientID %>").val("14");
                 $("#<%=ddlQtdeLum.ClientID %>").val("2");

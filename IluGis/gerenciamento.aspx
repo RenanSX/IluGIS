@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="gerenciamento.aspx.cs" Inherits="IluGis.gerenciamento" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="gerenciamento.aspx.cs" Inherits="IluGis.gerenciamento1" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="Content10" ContentPlaceHolderID="head" runat="server">
 <title>IluGIS</title>
 </asp:Content>
 
-<asp:Content ID="ContentRelatorio" ContentPlaceHolderID="body" runat="server">
+<asp:Content ID="ContentGerenciamento" ContentPlaceHolderID="body" runat="server">
     <form id="form1" runat="server">
     <div>
         <!---------------------------- Titulo--------------------------------------->
