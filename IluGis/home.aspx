@@ -1118,8 +1118,8 @@ document.write(
                             dataType: "json",
                             success: function (data2) {
                                 var parsed = $.parseJSON(data2.d);
-                                
-
+                                        var teste = "";
+                    
                                 $.each(parsed, function (i, jsondata) {
                                     lista.push([
                                           jsondata.ID_ILUMINACAO_PUBLICA,
@@ -1131,11 +1131,14 @@ document.write(
                                     ])
                                 })
                                 ilum.clearLayers();
+                                 
                                 for (var i = 0; i < lista.length; i++) {
-                                    if (lista[i][4] != "" || lista[i][4] != "NULL") {
+                                 if (lista[i][5] != "" && lista[i][5] != "null" && lista[i][5] != null && lista[i][5].toString() != "NULL" ) {
+                                      
                                         var LamMarker = L.marker([lista[i][2], lista[i][3]], { id: i, icon: greenIcon }).on('click', markerOnClick).addTo(map);
                                     }
                                     else {
+                                            
                                         var LamMarker = L.marker([lista[i][2], lista[i][3]], { id: i, icon: redIcon }).on('click', markerOnClick).addTo(map);
                                     }
 
@@ -1144,7 +1147,7 @@ document.write(
                                 }
                                 map.setView([-19.9246, -43.9614], 11)
                                 map.addLayer(ilum);
-
+                                
                                
                                
                             },
@@ -2319,11 +2322,12 @@ document.write(
                 dataType: "json",
                 success: function (data) {
                     var parsed = $.parseJSON(data.d);
-
+                       var teste =""; 
                     var i = 0;
                     $.each(parsed, function (i, jsondata) {
                         if (jsondata.COD_ILUM_FK != "" || jsondata.COD_ILUM_FK != "NULL")
                         {
+                            teste = jsondata.COD_ILUM_FK +'|';
                             var LamMarker = L.marker([jsondata.Y, jsondata.X], { id: i, icon: greenIcon }).on('click', markerOnClick).addTo(map);
                         }
                         else
@@ -2335,8 +2339,10 @@ document.write(
                         ilum.addLayer(LamMarker);
                        
                         //tableProp += '<tr><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc;">' + jsondata.NOME + '</td ><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc; ">' + jsondata.CPF + '</td ><td style="white-space: nowrap;"><center><span style="cursor: pointer;" onClick="removeProp(' + jsondata.COD_PROPRIETARIO_PK + ',' + jsondata.COD_EMPRESA_PK + ',\'' + jsondata.CPF + '\')" class="glyphicon glyphicon-remove "></span></center></td></tr>';
-                    });                   
+                    });    
+               
                     map.addLayer(ilum);
+                   
 
                 },
                 error: function (XHR, errStatus, errorThrown) {
@@ -2347,18 +2353,44 @@ document.write(
             });
         };
 
+
+        var oldLayer;///layer anterior
         function markerOnClick(e) {
            
             var latlong= convertUTM(lista[this.options.id][2],lista[this.options.id][3]);
            
             selectIluminacao(lista[this.options.id][0], lista[this.options.id][1], latlong[1], latlong[0], lista[this.options.id][4]);
 
+
             $('#<%=txtCodIluminacao.ClientID%>').val(lista[this.options.id][0]);
 
-
-            var LamMarker = L.marker([lista[this.options.id][2], lista[this.options.id][3]], { icon: blueIcon }).on('click', function () {this.setIcon(blueIcon);}).addTo(map);
+            var layer = e.target;
+            layer.setIcon(layer.options.icon = blueIcon);       
+            pos = this.options.id;
             
+          
+            if (oldLayer)
+            {
+                if (oldLayer.options.id != layer.options.id)
+                {
+                    if (lista[oldLayer.options.id][5] != null) {
+                        oldLayer.setIcon(layer.options.icon = greenIcon);
+                    }
+                    else {
+                        oldLayer.setIcon(layer.options.icon = redIcon);
+                    }
 
+                }
+                
+                
+
+            }
+
+            oldLayer = layer;
+            
+            
+            
+            
             //alert(lista[this.options.id][3] + " eita " + lista[this.options.id][2]);
             //LamMarker.setIcon(blueIcon);
            
