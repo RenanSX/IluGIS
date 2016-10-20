@@ -49,8 +49,11 @@
             to {opacity: 1;}
         }
 
-        .error {
-        border:2px solid red;
+        .form-control2:focus {
+            border-color: red;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.3);
+            box-shadow: inset 0 1px 1px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.3);
 }
     </style>
     <script type="text/javascript">
@@ -363,7 +366,7 @@
 <div class="row" id="linha-1">
 
 <div ID="tipobraco" title="Tipo de braço" class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-1" style="margin-bottom: 8px">
-<asp:DropDownList  Style="width: 82%; display:inline-block;" ID="ddlTipoBraco" for="inputError" class=" form-control input-sm " runat="server"  autofocus="true">
+<asp:DropDownList  Style="width: 82%; display:inline-block;" ID="ddlTipoBraco" class=" form-control input-sm " runat="server"  autofocus="true">
 <asp:ListItem Text ="Tipo de braço" Value = "-1"></asp:ListItem>
 <asp:ListItem Text ="Curto" Value = "Curto"></asp:ListItem>   
 <asp:ListItem Text ="Médio" Value = "Medio"></asp:ListItem>
@@ -869,7 +872,7 @@ document.write(
 </div>
     
     <script>
-
+        
         function travar() {
             if (telaModeToggle.checked) {
                 $(document).bind('scroll', function () {
@@ -1115,8 +1118,8 @@ document.write(
                             dataType: "json",
                             success: function (data2) {
                                 var parsed = $.parseJSON(data2.d);
-                                
-
+                                        var teste = "";
+                    
                                 $.each(parsed, function (i, jsondata) {
                                     lista.push([
                                           jsondata.ID_ILUMINACAO_PUBLICA,
@@ -1128,11 +1131,14 @@ document.write(
                                     ])
                                 })
                                 ilum.clearLayers();
+                                 
                                 for (var i = 0; i < lista.length; i++) {
-                                    if (lista[i][4] != "" || lista[i][4] != "NULL") {
+                                 if (lista[i][5] != "" && lista[i][5] != "null" && lista[i][5] != null && lista[i][5].toString() != "NULL" ) {
+                                      
                                         var LamMarker = L.marker([lista[i][2], lista[i][3]], { id: i, icon: greenIcon }).on('click', markerOnClick).addTo(map);
                                     }
                                     else {
+                                            
                                         var LamMarker = L.marker([lista[i][2], lista[i][3]], { id: i, icon: redIcon }).on('click', markerOnClick).addTo(map);
                                     }
 
@@ -1141,7 +1147,7 @@ document.write(
                                 }
                                 map.setView([-19.9246, -43.9614], 11)
                                 map.addLayer(ilum);
-
+                                
                                
                                
                             },
@@ -1279,7 +1285,10 @@ document.write(
             }
 
             $("#<%=ddlTipoBraco.ClientID %>").change(function () {
-                    document.getElementById('ddlTipoBraco').className = "form-control2";
+                classe = document.getElementById('txtProjBraco').className;
+                if (classe == 'txtProjBraco') {
+                    document.getElementById('txtProjBraco').className = 'form-control2';
+                }
             });
 
             /*-------------------------Padrao para o tipo e potencia de fonte luminosa--------------*/
@@ -1468,8 +1477,8 @@ document.write(
             });
 
             $("#btncomunrodovia").click(function () {// icone que habilita opções de medição
+                limpa();
                 setDefault();
-                $("#<%=txtProjBraco.ClientID %>").val("");
                 $("#<%=ddlTipoBraco.ClientID %>").val("Especial");                
                 $("#<%=txtAltPoste.ClientID %>").val("14");
                 $("#<%=ddlQtdeLum.ClientID %>").val("2");
@@ -2313,11 +2322,12 @@ document.write(
                 dataType: "json",
                 success: function (data) {
                     var parsed = $.parseJSON(data.d);
-
+                       var teste =""; 
                     var i = 0;
                     $.each(parsed, function (i, jsondata) {
                         if (jsondata.COD_ILUM_FK != "" || jsondata.COD_ILUM_FK != "NULL")
                         {
+                            teste = jsondata.COD_ILUM_FK +'|';
                             var LamMarker = L.marker([jsondata.Y, jsondata.X], { id: i, icon: greenIcon }).on('click', markerOnClick).addTo(map);
                         }
                         else
@@ -2329,8 +2339,10 @@ document.write(
                         ilum.addLayer(LamMarker);
                        
                         //tableProp += '<tr><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc;">' + jsondata.NOME + '</td ><td style="white-space: nowrap;padding-left: 10px; padding-right: 10px; border-right: 1px solid #cccccc; ">' + jsondata.CPF + '</td ><td style="white-space: nowrap;"><center><span style="cursor: pointer;" onClick="removeProp(' + jsondata.COD_PROPRIETARIO_PK + ',' + jsondata.COD_EMPRESA_PK + ',\'' + jsondata.CPF + '\')" class="glyphicon glyphicon-remove "></span></center></td></tr>';
-                    });                   
+                    });    
+               
                     map.addLayer(ilum);
+                   
 
                 },
                 error: function (XHR, errStatus, errorThrown) {
@@ -2341,31 +2353,54 @@ document.write(
             });
         };
 
+
+        var oldLayer;///layer anterior
         function markerOnClick(e) {
            
             var latlong= convertUTM(lista[this.options.id][2],lista[this.options.id][3]);
            
             selectIluminacao(lista[this.options.id][0], lista[this.options.id][1], latlong[1], latlong[0], lista[this.options.id][4]);
 
+
             $('#<%=txtCodIluminacao.ClientID%>').val(lista[this.options.id][0]);
 
-
-            var LamMarker = L.marker([lista[this.options.id][2], lista[this.options.id][3]], { icon: blueIcon }).on('click', function () {this.setIcon(blueIcon);}).addTo(map);
+            var layer = e.target;
+            layer.setIcon(layer.options.icon = blueIcon);       
+            pos = this.options.id;
             
+          
+            if (oldLayer)
+            {
+                if (oldLayer.options.id != layer.options.id)
+                {
+                    if (lista[oldLayer.options.id][5] != null) {
+                        oldLayer.setIcon(layer.options.icon = greenIcon);
+                    }
+                    else {
+                        oldLayer.setIcon(layer.options.icon = redIcon);
+                    }
 
+                }
+                
+                
+
+            }
+
+            oldLayer = layer;
+            
+            
+            
+            
             //alert(lista[this.options.id][3] + " eita " + lista[this.options.id][2]);
             //LamMarker.setIcon(blueIcon);
-            alert("carai");
+           
            // alert("Ta vendo é por que ta funcionando." + this.options.id + " MISERAVIII " + e.latlng);
             
-        } ilum.addLayer(LamMarker);
+        } 
         
 
 
-        function onClick(e) {
-            
-            
-        }
+       
         L.control.coordinates().addTo(map);
         function setDefault()
              {
