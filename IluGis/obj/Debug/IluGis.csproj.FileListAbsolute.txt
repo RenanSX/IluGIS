@@ -329,3 +329,4 @@ C:\Users\renan.xavier\Desktop\IluGIS2\IluGis\obj\Debug\IluGis.csprojResolveAssem
 C:\Users\renan.xavier\Desktop\IluGIS2\IluGis\obj\Debug\IluGis.dll
 C:\Users\renan.xavier\Desktop\IluGIS2\IluGis\obj\Debug\IluGis.pdb
 C:\Users\pedro.rezende\Documents\ARYA_SIS\IluGIS\IluGis\obj\Debug\IluGis.csprojResolveAssemblyReference.cache
+C:\Users\renan.xavier\Source\Repos\IluGIS\IluGis\obj\Debug\IluGis.csprojResolveAssemblyReference.cache
