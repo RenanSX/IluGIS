@@ -384,6 +384,13 @@
     <Content Include="playerProductInstall.swf" />
     <Content Include="register.aspx" />
     <Content Include="gerenciamento.aspx" />
+    <Content Include="rotas\.gitattributes" />
+    <Content Include="rotas\.gitignore" />
+    <Content Include="rotas\css\estilo.css" />
+    <Content Include="rotas\index.html" />
+    <Content Include="rotas\js\jquery.min.js" />
+    <Content Include="rotas\js\mapa.js" />
+    <Content Include="rotas\readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

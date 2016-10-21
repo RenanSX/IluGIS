@@ -21,6 +21,11 @@
 	<link rel="stylesheet" href="../dist/Leaflet.Coordinates-0.1.5.css"/>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <%--<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
+
+    <!-----------------------------LIB LEAFLET--------------------------->
+
+     <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=Kmjtd%7Cluua2qu7n9%2C7a%3Do5-lzbgq"></script>
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key=Kmjtd%7Cluua2qu7n9%2C7a%3Do5-lzbgq"></script>
     <script type="text/javascript" src="/dist/Leaflet.Coordinates-0.1.5.min.js"></script>
 
     <script src="/dist/Leaflet-WFST.src.js"></script>
