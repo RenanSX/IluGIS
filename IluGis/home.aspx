@@ -24,8 +24,8 @@
 
     <!-----------------------------LIB LEAFLET--------------------------->
 
-     <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=Kmjtd%7Cluua2qu7n9%2C7a%3Do5-lzbgq"></script>
-        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key=Kmjtd%7Cluua2qu7n9%2C7a%3Do5-lzbgq"></script>
+     <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=N1itCOgoYv8wmzSnViUpu7pPuSf6xl3U"></script>
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key=N1itCOgoYv8wmzSnViUpu7pPuSf6xl3U"></script>
     <script type="text/javascript" src="/dist/Leaflet.Coordinates-0.1.5.min.js"></script>
 
     <script src="/dist/Leaflet-WFST.src.js"></script>
@@ -880,8 +880,25 @@ document.write(
     
     <script>
         
-        
-        function validaForm(){            
+      
+        function validaForm(){    
+
+             var dir = MQ.routing.directions();
+
+                dir.optimizedRoute({
+                    locations: [
+                        
+                      '-19.868311, -43.948468',
+                        '-19.8587,-43.9363887',
+                        '-19.8690878,-43.9685728',
+                        '-19.9870495,-43.9417694'
+                    ]
+                });
+
+                map.addLayer(MQ.routing.routeLayer({
+                    directions: dir,
+                    fitBounds: true
+                }));
             //   .style.backgroundColor = "red";
             if ( $("#<%=txtProjBraco.ClientID %>").val() == "") {
                 $("#<%=txtProjBraco.ClientID %>").css("borderColor", "#ff0000");

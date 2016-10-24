@@ -1,12 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="gerenciamento.aspx.cs" Inherits="IluGis.gerenciamento1" %>
 
 <asp:Content ID="Content10" ContentPlaceHolderID="head" runat="server">
+    <script src="js/d3plus.full.min.js"></script>
+
 <title>IluGIS</title>
 </asp:Content>
 
 <asp:Content ID="ContentGerenciamento" ContentPlaceHolderID="body" runat="server">
     <form id="form1" runat="server">
-    <div>
+    <div style="display:none;">
         <!---------------------------- Titulo--------------------------------------->
         <div class="row" style="margin-bottom: 8px;">
             <h1 style="text-align: center">Relatórios</h1>
@@ -21,7 +23,7 @@
         </div>
 
         <div class="row"  style="margin-bottom:16px">
-            <div  id="localidadeRelatorio" class=" col-md-3 col-sm-3 col-md-offset-1 col-sm-offset-1" style="margin-bottom:8px">             
+            <div  id="localidadeRelatorio" class=" col-md-3 col-sm-3 col-md-offset-4 col-sm-offset-4" style="margin-bottom:8px">             
                 <asp:DropDownList  Style="width: 100%; height: 34px;" ID="ddllocalidadeRelatorio" class=" form-control input-sm " runat="server" title="Definir localidade" autofocus="true">
                 <asp:ListItem Text ="Selecione o local" Value = "-1"></asp:ListItem>
                 <asp:ListItem Text ="BARREIRO 01" Value = "BARREIRO01"></asp:ListItem>   
@@ -53,7 +55,9 @@
                 <asp:ListItem Text ="VENDA NOVA 02" Value = "VENDANOVA02"></asp:ListItem>          
                 </asp:DropDownList>
             </div>
-            <div class="col-md-3 col-sm-3">
+            </div>
+         <div class="row"  style="margin-bottom:16px">
+           <div class="col-md- col-sm-3 col-md-offset-4 col-sm-offset-4">
                 <asp:LinkButton runat="server" ID="btnEmitirRelatorio" class="btn btn-md btn-primary btn-block" type="submit" Text="Emitir Relatório" title="Emitir relatório"/>
             </div>
             
@@ -68,4 +72,114 @@
         <!-------------------------------fim usuario controle------------------------------------------>
     </div>
     </form>
+    <div id="viz" style="width:500px; height:500px;"></div>
+
+    <script>
+     
+        var datagraph;
+        var campos = "";
+        
+
+        $.ajax({
+            url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorio") %>',
+            type: "POST",
+            data: "{ 'campo': 'TIPO_POSTE'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data2) {
+                var parsed = $.parseJSON(data2.d);
+               
+                var count = 0;
+                $.each(parsed, function (i, jsondata) {
+                    if (count == 0)
+                    {
+                        campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value +' }';
+                    }
+                    else {
+                        campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + '}';
+                    }
+                    count++;
+                   
+                            
+                      
+                })
+
+                campos += "]";
+                
+                var atributos = groupColor($.parseJSON(campos), ["Concreto Circular", "Madeira", "Metalico", "Concreto"], ["#AEA79F", "#E95420", "#77216F", "#000000"])
+
+                // instantiate d3plus
+                var visualization = d3plus.viz()
+                  .container("#viz")  // container DIV to hold the visualization
+                  .data($.parseJSON(campos))  // data to use with the visualization
+                  .type("pie")   // visualization type
+                  .id("name")
+                  .size("value")                
+                 .attrs(atributos)
+                 .color("hex")// key for which our data is unique on
+                 .draw();             
+
+
+            },
+            failure: function (response) {
+                alert(response.d);
+            },
+            error: function (response) {
+                alert(response.d);
+            }
+        });
+
+
+        function groupColor(json,listParametres,listColor)
+        {
+            var result = "[";
+            var n = listParametres.length;
+            $.each(json, function (i, jsondata) {
+              
+                for (var j = 0 ; j < n; j++)
+           
+                    if (jsondata.name.toString() == listParametres[j]) {
+                       
+                        if (j == 0)
+                        {
+                            result += '{"name": "' + jsondata.name + '","hex": "' + listColor[j] + '" }';
+                        }
+                        else
+                        {
+                            result += ',{"name": "' + jsondata.name + '","hex": "' + listColor[j] + '" }';
+                        }
+                       
+                     
+                    }
+            });
+
+            result += "]";
+
+            return $.parseJSON(result)
+        }
+
+
+
+
+        //// sample data array
+        //var sample_data = [
+        //  { "value": 100, "name": "alpha" },
+        //  { "value": 70, "name": "beta" },
+        //  { "value": 40, "name": "gamma" },
+        //  { "value": 15, "name": "delta" },
+        //  { "value": 5, "name": "epsilon" },
+        //  { "value": 1, "name": "zeta" }
+        //];
+
+
+        //var attributes = [
+        //  { "name": "alpha", "hex": "#FF0000" },
+        //  { "name": "beta", "hex": "#FFCC00" },
+        //   { "name": "gamma", "hex": "#0000FF" },
+        //]
+
+
+      
+    </script>
+
 </asp:Content>
