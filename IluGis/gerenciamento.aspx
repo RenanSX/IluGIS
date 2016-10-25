@@ -123,7 +123,7 @@
     <script>
      
         
-
+        var visualization;
         GetGraph();
         function GetGraph()
         {
@@ -139,6 +139,8 @@
 
         function Relat(campo, div, model, title)
         {
+            var count = 0;
+            var somatoria = 0;
              var campos = "";
             $.ajax({
                 url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorio") %>',
@@ -149,53 +151,52 @@
                 success: function (data2) {
                     var parsed = $.parseJSON(data2.d);
 
-                    var count = 0;
+                   
                     $.each(parsed, function (i, jsondata) {
                         if (count == 0) {
-                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ' }';
+                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' + parseInt(((jsondata.value / 1822) * 100)) +'%" }';
                         }
                         else {
-                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + '}';
+                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' +  parseInt(((jsondata.value / 1822) * 100)) + '%"}';
                         }
+                        somatoria += jsondata.value;
                         count++;
 
 
                     })
-
+                   
                     campos += "]";
-
+                  
                   
 
                     // instantiate d3plus
                     if (model == "pie")
                     {
-                            var visualization = d3plus.viz()
+                            visualization = d3plus.viz()
                             .container(div)  // container DIV to hold the visualization
                             .data($.parseJSON(campos))  // data to use with the visualization
                             .type(model)   // visualization type
                             .id("name")
                             .size("value")
-                            .labels({ "align": "left", "valign": "top","resize":true,"padding":"2","value":true,"text":"name" })
+                            .labels({ "align": "left", "valign": "top", "resize": true, "padding": "2", "value": true, "text": "percent"})
                             .color("name")
                             .legend({ "labels": true, "size": 50 })
-                            .title(title)
+                            .title(title)                            
                            .draw();
 
                     }
                     else
                     {
-                        var visualization = d3plus.viz()
+                      visualization = d3plus.viz()
                             .container(div)  // container DIV to hold the visualization
                             .data($.parseJSON(campos))  // data to use with the visualization
                             .type(model)   // visualization type
                             .id("name")
                             .x("name")
                             .y("value")
-                            .labels({ "align": "center", "valign": "top", "resize": true })
-                             .color("name")
-                            .text("name")
-                            .title(title)
-                            .legend({ "labels": true, "size": 50 })                     
+                            .labels({ "align": "center", "valign": "top", "resize": true })                            
+                            .text("value")
+                            .title(title)                                               
                            .draw();
                     }
                    
@@ -228,10 +229,10 @@
                     var count = 0;
                     $.each(parsed, function (i, jsondata) {
                         if (count == 0) {
-                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo": "' + jsondata.grupo + '"}';
+                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' + parseInt(((jsondata.value / 1822) * 100)) + '%" }';
                         }
                         else {
-                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo": "' + jsondata.grupo + '"}';
+                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' + parseInt(((jsondata.value / 1822) * 100)) + '%"}';
                         }
                         count++;
 
@@ -243,7 +244,7 @@
 
 
 
-                    var visualization = d3plus.viz()
+                     visualization = d3plus.viz()
                       .container(div)  // container DIV to hold the visualization
                       .data($.parseJSON(campos))  // data to use with the visualization
                       .type(model)   // visualization type
@@ -271,6 +272,12 @@
                 }
             });
 
+        }
+
+
+        dot.on("click", click);
+        function click(d) {
+            console.log(d.title); //considering dot has a title attribute
         }
         
 
