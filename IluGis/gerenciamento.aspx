@@ -3,11 +3,12 @@
 <asp:Content ID="Content10" ContentPlaceHolderID="head" runat="server">
     <script src="js/d3plus.full.min.js"></script>
 
-<title>IluGIS</title>
+<title>Heimdall</title>
 </asp:Content>
 
 <asp:Content ID="ContentGerenciamento" ContentPlaceHolderID="body" runat="server">
     <form id="form1" runat="server">
+        <center><h1>Dashboard</h1></center>
     <div style="display:none;">
         <!---------------------------- Titulo--------------------------------------->
         <div class="row" style="margin-bottom: 8px;">
@@ -72,111 +73,216 @@
         <!-------------------------------fim usuario controle------------------------------------------>
     </div>
     </form>
-    <div id="viz" style="width:500px; height:500px;"></div>
+   <div>
+       <table style ="width:100%">
+           <tr>
+               <td style ="width:30%">
+                    <div id="poste" style=" height:400px;"></div>                       
+               </td>
+               <td style ="width:30%">
+                
+                    <div id="reator" style=" height:400px;"> </div>
+                </td>
+                 <td style ="width:40%">
+                
+                    <div id="viz" style=" height:400px;"> </div>
+                </td>
+               
+           
+           </tr>
+
+
+           <tr>
+               <td style ="width:30%">
+                   <div id="braco" style=" height:400px;"></div>
+
+               </td>
+               <td style ="width:30%">
+                     <div id="rele" style=" height:400px;"></div>
+
+               </td>
+               <td style ="width:40%">
+
+                       <div id="aliment" style=" height:400px;"> </div>
+
+               </td>
+          </tr>
+          
+       </table>
+        
+        
+        
+       
+       
+   </div>
+       
+
+
+    
 
     <script>
      
-        var datagraph;
-        var campos = "";
         
 
-        $.ajax({
-            url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorio") %>',
-            type: "POST",
-            data: "{ 'campo': 'TIPO_POSTE'}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data2) {
-                var parsed = $.parseJSON(data2.d);
-               
-                var count = 0;
-                $.each(parsed, function (i, jsondata) {
-                    if (count == 0)
-                    {
-                        campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value +' }';
-                    }
-                    else {
-                        campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + '}';
-                    }
-                    count++;
-                   
-                            
-                      
-                })
-
-                campos += "]";
-                
-                var atributos = groupColor($.parseJSON(campos), ["Concreto Circular", "Madeira", "Metalico", "Concreto"], ["#AEA79F", "#E95420", "#77216F", "#000000"])
-
-                // instantiate d3plus
-                var visualization = d3plus.viz()
-                  .container("#viz")  // container DIV to hold the visualization
-                  .data($.parseJSON(campos))  // data to use with the visualization
-                  .type("pie")   // visualization type
-                  .id("name")
-                  .size("value")                
-                 .attrs(atributos)
-                 .color("hex")// key for which our data is unique on
-                 .draw();             
-
-
-            },
-            failure: function (response) {
-                alert(response.d);
-            },
-            error: function (response) {
-                alert(response.d);
-            }
-        });
-
-
-        function groupColor(json,listParametres,listColor)
+        GetGraph();
+        function GetGraph()
         {
-            var result = "[";
-            var n = listParametres.length;
-            $.each(json, function (i, jsondata) {
-              
-                for (var j = 0 ; j < n; j++)
-           
-                    if (jsondata.name.toString() == listParametres[j]) {
-                       
-                        if (j == 0)
-                        {
-                            result += '{"name": "' + jsondata.name + '","hex": "' + listColor[j] + '" }';
+            Relat("TIPO_POSTE", "#poste","pie","Tipo de Poste");          
+            Relat("TIPO_BRACO", "#braco","pie","Tipo de Braço");
+            Relat("TIPO_RELE", "#rele","pie","Tipo de Relé");
+            Relat("TIPO_REATOR", "#reator", "bar","Tipo de Reator");
+            Relat("TIPO_ALIMENTACAO", "#aliment", "bar","Tipo de Alimentação");
+            RelatGrupo("TIPO_LUMINARIA", "#viz", "GRUPO_TIPO_LUMINARIA","tree_map", "Tipo de Luminária");
+
+         }
+
+
+        function Relat(campo, div, model, title)
+        {
+             var campos = "";
+            $.ajax({
+                url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorio") %>',
+                type: "POST",
+                data: "{ 'campo': '" + campo + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data2) {
+                    var parsed = $.parseJSON(data2.d);
+
+                    var count = 0;
+                    $.each(parsed, function (i, jsondata) {
+                        if (count == 0) {
+                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ' }';
                         }
-                        else
-                        {
-                            result += ',{"name": "' + jsondata.name + '","hex": "' + listColor[j] + '" }';
+                        else {
+                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + '}';
                         }
-                       
-                     
+                        count++;
+
+
+                    })
+
+                    campos += "]";
+
+                  
+
+                    // instantiate d3plus
+                    if (model == "pie")
+                    {
+                            var visualization = d3plus.viz()
+                            .container(div)  // container DIV to hold the visualization
+                            .data($.parseJSON(campos))  // data to use with the visualization
+                            .type(model)   // visualization type
+                            .id("name")
+                            .size("value")
+                            .labels({ "align": "left", "valign": "top","resize":true,"padding":"2","value":true,"text":"name" })
+                            .color("name")
+                            .legend({ "labels": true, "size": 50 })
+                            .title(title)
+                           .draw();
+
                     }
+                    else
+                    {
+                        var visualization = d3plus.viz()
+                            .container(div)  // container DIV to hold the visualization
+                            .data($.parseJSON(campos))  // data to use with the visualization
+                            .type(model)   // visualization type
+                            .id("name")
+                            .x("name")
+                            .y("value")
+                            .labels({ "align": "center", "valign": "top", "resize": true })
+                             .color("name")
+                            .text("name")
+                            .title(title)
+                            .legend({ "labels": true, "size": 50 })                     
+                           .draw();
+                    }
+                   
+                  
+
+
+                },
+                failure: function (response) {
+                    alert(response.d);
+                },
+                error: function (response) {
+                    alert(response.d);
+                }
             });
 
-            result += "]";
-
-            return $.parseJSON(result)
         }
 
+        function RelatGrupo(campo, div, grupo, model, title) {
+            var campos = "";
+            
+            $.ajax({
+                url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorioGrupo") %>',
+                type: "POST",
+                data: "{ 'campo': '" + campo + "', 'grupo':'"+grupo+"'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data2) {
+                    var parsed = $.parseJSON(data2.d);
+
+                    var count = 0;
+                    $.each(parsed, function (i, jsondata) {
+                        if (count == 0) {
+                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo": "' + jsondata.grupo + '"}';
+                        }
+                        else {
+                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo": "' + jsondata.grupo + '"}';
+                        }
+                        count++;
+
+
+                    })
+
+                    campos += "]";
 
 
 
-        //// sample data array
-        //var sample_data = [
-        //  { "value": 100, "name": "alpha" },
-        //  { "value": 70, "name": "beta" },
-        //  { "value": 40, "name": "gamma" },
-        //  { "value": 15, "name": "delta" },
-        //  { "value": 5, "name": "epsilon" },
-        //  { "value": 1, "name": "zeta" }
-        //];
+
+                    var visualization = d3plus.viz()
+                      .container(div)  // container DIV to hold the visualization
+                      .data($.parseJSON(campos))  // data to use with the visualization
+                      .type(model)   // visualization type
+                      .id(["grupo", "name"])
+                      .size("value")
+                      .title(title)
+                     .labels({ "align": "left", "valign": "top", "resize": true })
+                      .color("grupo")
+                     .ui([
+                    {
+                        "method": "color",
+                        "value": ["grupo", "name"]
+                    }
+                     ])
+                    .legend({ "labels": true, "size": 50 })
+                      .draw();
 
 
-        //var attributes = [
-        //  { "name": "alpha", "hex": "#FF0000" },
-        //  { "name": "beta", "hex": "#FFCC00" },
-        //   { "name": "gamma", "hex": "#0000FF" },
-        //]
+                },
+                failure: function (response) {
+                    alert(response.d);
+                },
+                error: function (response) {
+                    alert(response.d);
+                }
+            });
+
+        }
+        
+
+       
+
+
+       
+
+
+
+
+        
 
 
       

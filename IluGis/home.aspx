@@ -18,7 +18,7 @@
     <!------------------LEAFLET --------->
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-	<link rel="stylesheet" href="../dist/Leaflet.Coordinates-0.1.5.css"/>
+	<link rel="stylesheet" href="dist/Leaflet.Coordinates-0.1.5.css"/>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <%--<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
 
@@ -26,9 +26,9 @@
 
      <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=N1itCOgoYv8wmzSnViUpu7pPuSf6xl3U"></script>
         <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key=N1itCOgoYv8wmzSnViUpu7pPuSf6xl3U"></script>
-    <script type="text/javascript" src="/dist/Leaflet.Coordinates-0.1.5.min.js"></script>
+    <script type="text/javascript" src="dist/Leaflet.Coordinates-0.1.5.min.js"></script>
 
-    <script src="/dist/Leaflet-WFST.src.js"></script>
+    <script src="dist/Leaflet-WFST.src.js"></script>
     <script src="src/L.TileLayer.BetterWMS.js"></script>
     <style>
         /*FUNDO RGB: 424263   2A2A3F*/
