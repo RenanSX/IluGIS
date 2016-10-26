@@ -170,6 +170,96 @@ namespace IluGis.Classes
         }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetRelatorioFiltro(string campo, string filtro, string value)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager
+                    .ConnectionStrings["MyConnString"].ConnectionString;
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+
+                    cmd.CommandText = "SELECT  " + campo + " as name , COUNT(@campo) as value FROM sde.INFO_ILUM WHERE " + campo + " is not null AND "+filtro+"='"+value+"' GROUP BY " + campo;
+
+                    cmd.Parameters.AddWithValue("@campo", campo);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> row;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        row = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            row.Add(col.ColumnName, dr[col]);
+                        }
+                        rows.Add(row);
+                    }
+
+
+                    return serializer.Serialize(rows);
+
+
+                }
+
+            }
+
+
+
+
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetRelatorioFiltroGrupo(string campo, string filtro, string value,string grupo)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager
+                    .ConnectionStrings["MyConnString"].ConnectionString;
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+
+                    cmd.CommandText = "SELECT  " + campo + " as name ," + grupo + " as grupo , COUNT(@campo) as value FROM sde.INFO_ILUM WHERE " + campo + " is not null AND " + filtro + "='" + value + "' GROUP BY " + campo + ", " + grupo;
+
+                    cmd.Parameters.AddWithValue("@campo", campo);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> row;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        row = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            row.Add(col.ColumnName, dr[col]);
+                        }
+                        rows.Add(row);
+                    }
+
+
+                    return serializer.Serialize(rows);
+
+
+                }
+
+            }
+
+
+
+
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public string GetRelatorio(string campo)
         {
             DataTable dt = new DataTable();
@@ -181,7 +271,7 @@ namespace IluGis.Classes
                 using (SqlCommand cmd = new SqlCommand())
                 {
 
-                    cmd.CommandText = "SELECT  "+campo+" as name , COUNT(@campo) as value FROM sde.INFO_ILUM WHERE "+campo+" is not null GROUP BY " + campo;
+                    cmd.CommandText = "SELECT  " + campo + " as name,  COUNT(@campo) as value FROM sde.INFO_ILUM WHERE " + campo + " is not null GROUP BY " + campo;
 
                     cmd.Parameters.AddWithValue("@campo", campo);
                     cmd.Connection = conn;

@@ -122,163 +122,346 @@
 
     <script>
      
-        
-        var visualization;
+        var listvisual = new Array();
+               
         GetGraph();
         function GetGraph()
         {
-            Relat("TIPO_POSTE", "#poste","pie","Tipo de Poste");          
-            Relat("TIPO_BRACO", "#braco","pie","Tipo de Braço");
-            Relat("TIPO_RELE", "#rele","pie","Tipo de Relé");
-            Relat("TIPO_REATOR", "#reator", "bar","Tipo de Reator");
-            Relat("TIPO_ALIMENTACAO", "#aliment", "bar","Tipo de Alimentação");
-            RelatGrupo("TIPO_LUMINARIA", "#viz", "GRUPO_TIPO_LUMINARIA","tree_map", "Tipo de Luminária");
+            listvisual = [];
+            //Relat("TIPO_BRACO", "#braco", "pie", "Tipo de Braço", false);
+            Relat("TIPO_POSTE", "#poste","pie","Tipo de Poste",false);        
+            Relat("TIPO_RELE", "#rele","pie","Tipo de Relé",false);
+            Relat("TIPO_REATOR", "#reator", "bar","Tipo de Reator",false);
+            Relat("TIPO_ALIMENTACAO", "#aliment", "bar","Tipo de Alimentação",false);
+            Relat("TIPO_LUMINARIA", "#viz", "tree_map", "Tipo de Luminária", "GRUPO_TIPO_LUMINARIA");
+            
+           
 
          }
 
 
-        function Relat(campo, div, model, title)
+        function Relat(campo, div, model, title,grupo)
         {
+           
             var count = 0;
             var somatoria = 0;
-             var campos = "";
-            $.ajax({
-                url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorio") %>',
-                type: "POST",
-                data: "{ 'campo': '" + campo + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data2) {
-                    var parsed = $.parseJSON(data2.d);
+            var campos = "";
 
-                   
-                    $.each(parsed, function (i, jsondata) {
-                        if (count == 0) {
-                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' + parseInt(((jsondata.value / 1822) * 100)) +'%" }';
-                        }
-                        else {
-                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' +  parseInt(((jsondata.value / 1822) * 100)) + '%"}';
-                        }
-                        somatoria += jsondata.value;
-                        count++;
+            if (grupo)
+            {
+                $.ajax({
+                    url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorioGrupo") %>',
+                    type: "POST",
+                    data: "{ 'campo': '" + campo + "', 'grupo':'" + grupo + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data2) {
+                        var parsed = $.parseJSON(data2.d);
+
+                        var count = 0;
+                        $.each(parsed, function (i, jsondata) {
+                            if (count == 0) {
+                                campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo": "' + jsondata.grupo + '"}';
+                            }
+                            else {
+                                campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo": "' + jsondata.grupo + '"}';
+                            }
+                            count++;
 
 
-                    })
-                   
-                    campos += "]";
-                  
-                  
+                        })
 
-                    // instantiate d3plus
-                    if (model == "pie")
-                    {
-                            visualization = d3plus.viz()
+                        campos += "]";
+
+
+
+
+                       var  visualization = d3plus.viz()
+                         .container(div)  // container DIV to hold the visualization
+                         .data($.parseJSON(campos))  // data to use with the visualization
+                         .type(model)   // visualization type
+                         .id(["grupo", "name"])
+                         .size("value")
+                         .title(title)
+                        .labels({ "align": "left", "valign": "top", "resize": true })
+                        .color("grupo")
+                        .ui([
+                       {
+                           "method": "color",
+                           "value": ["grupo", "name"]
+                       }
+                        ])
+                       .legend({ "labels": true, "size": 50 })
+                         .draw();
+
+                        listvisual.push([visualization, div]);
+
+
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    },
+                    error: function (response) {
+                        alert(response.d);
+                    }
+                });
+
+            }
+            else {
+                $.ajax({
+                    url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorio") %>',
+                    type: "POST",
+                    data: "{ 'campo': '" + campo + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data2) {
+                        var parsed = $.parseJSON(data2.d);
+
+                        $.each(parsed, function (i, jsondata) {
+
+                            somatoria += jsondata.value;
+
+
+
+
+                        })
+
+                        $.each(parsed, function (i, jsondata) {
+                            if (count == 0) {
+                                campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"campo":"' + campo + '","percent":"' + parseInt(((jsondata.value / somatoria) * 100)) + '%" }';
+                            }
+                            else {
+                                campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"campo":"' + campo + '","percent":"' + parseInt(((jsondata.value / somatoria) * 100)) + '%"}';
+                            }
+
+                            count++;
+
+
+                        })
+
+                        campos += "]";
+
+
+                        
+                        if (model == "pie") {
+                            var visualization = d3plus.viz()
                             .container(div)  // container DIV to hold the visualization
                             .data($.parseJSON(campos))  // data to use with the visualization
                             .type(model)   // visualization type
                             .id("name")
                             .size("value")
-                            .labels({ "align": "left", "valign": "top", "resize": true, "padding": "2", "value": true, "text": "percent"})
+                            .labels({ "align": "left", "valign": "top", "resize": true, "padding": "2", "value": true, "text": "percent" })
                             .color("name")
                             .legend({ "labels": true, "size": 50 })
-                            .title(title)                            
+                            .title(title)
+                            .mouse({
+                                "click": function (d, viz) {
+                                    
+                                    setTimeout(filtro("TIPO_BRACO", d.campo, d.name, "#braco", "pie", "Tipo de Braço", false), 500);
+                                    
+                                    setTimeout(filtro("TIPO_POSTE", d.campo, d.name, "#poste", "pie", "Tipo de Poste", false), 500);
+                                    setTimeout( filtro("TIPO_RELE", d.campo, d.name, "#rele", "pie", "Tipo de Relé", false), 500);
+                                    setTimeout(filtro("TIPO_REATOR", d.campo, d.name, "#reator", "bar", "Tipo de Reator", false), 500);
+                                    setTimeout(filtro("TIPO_ALIMENTACAO", d.campo, d.name, "#aliment", "bar", "Tipo de Alimentação", false), 500);                                    
+                                    setTimeout(filtro("TIPO_LUMINARIA", d.campo, d.name, "#viz", "tree_map", "Tipo de Luminária", "GRUPO_TIPO_LUMINARIA"), 400);
+                                    
+                                                                     
+                                   
+                                    
+                                                                        
+                                    
+                                }
+                            })
                            .draw();
+                           
 
-                    }
-                    else
-                    {
-                      visualization = d3plus.viz()
-                            .container(div)  // container DIV to hold the visualization
-                            .data($.parseJSON(campos))  // data to use with the visualization
-                            .type(model)   // visualization type
-                            .id("name")
-                            .x("name")
-                            .y("value")
-                            .labels({ "align": "center", "valign": "top", "resize": true })                            
-                            .text("value")
-                            .title(title)                                               
-                           .draw();
-                    }
-                   
-                  
-
-
-                },
-                failure: function (response) {
-                    alert(response.d);
-                },
-                error: function (response) {
-                    alert(response.d);
-                }
-            });
-
-        }
-
-        function RelatGrupo(campo, div, grupo, model, title) {
-            var campos = "";
-            
-            $.ajax({
-                url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorioGrupo") %>',
-                type: "POST",
-                data: "{ 'campo': '" + campo + "', 'grupo':'"+grupo+"'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data2) {
-                    var parsed = $.parseJSON(data2.d);
-
-                    var count = 0;
-                    $.each(parsed, function (i, jsondata) {
-                        if (count == 0) {
-                            campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' + parseInt(((jsondata.value / 1822) * 100)) + '%" }';
                         }
                         else {
-                            campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"percent":"' + parseInt(((jsondata.value / 1822) * 100)) + '%"}';
+                            var visualization = d3plus.viz()
+                                  .container(div)  // container DIV to hold the visualization
+                                  .data($.parseJSON(campos))  // data to use with the visualization
+                                  .type(model)   // visualization type
+                                  .id("name")
+                                  .x("name")
+                                  .y("value")
+                                  .labels({ "align": "center", "valign": "top", "resize": true })
+                                  .text("percent")
+                                  .title(title)
+                                 .mouse({
+                                     "click": function (d, viz) {
+
+                                         setTimeout(filtro("TIPO_POSTE", d.campo, d.name, "#poste", "pie", "Tipo de Poste", false), 500);
+                                         setTimeout(filtro("TIPO_RELE", d.campo, d.name, "#rele", "pie", "Tipo de Relé", false), 500);
+                                         setTimeout(filtro("TIPO_REATOR", d.campo, d.name, "#reator", "bar", "Tipo de Reator", false), 500);
+                                         setTimeout(filtro("TIPO_ALIMENTACAO", d.campo, d.name, "#aliment", "bar", "Tipo de Alimentação", false), 500);
+                                         setTimeout(filtro("TIPO_BRACO", d.campo, d.name, "#braco", "pie", "Tipo de Braço", false), 500);
+                                         setTimeout(filtro("TIPO_LUMINARIA", d.campo, d.name, "#viz", "tree_map", "Tipo de Luminária", "GRUPO_TIPO_LUMINARIA"), 400);
+
+
+
+
+
+
+                                     }
+                                 })
+                                 .draw();
                         }
-                        count++;
 
 
-                    })
+                        listvisual.push([visualization, div]);
 
-                    campos += "]";
-
-
+                        
 
 
-                     visualization = d3plus.viz()
-                      .container(div)  // container DIV to hold the visualization
-                      .data($.parseJSON(campos))  // data to use with the visualization
-                      .type(model)   // visualization type
-                      .id(["grupo", "name"])
-                      .size("value")
-                      .title(title)
-                     .labels({ "align": "left", "valign": "top", "resize": true })
-                      .color("grupo")
-                     .ui([
-                    {
-                        "method": "color",
-                        "value": ["grupo", "name"]
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    },
+                    error: function (response) {
+                        alert(response.d);
                     }
-                     ])
-                    .legend({ "labels": true, "size": 50 })
-                      .draw();
+                });
+
+            }
+
+           
+
+        }      
+
+        function filtro(campo,filtro,value,div,model,title,grupo)
+        {
+            var count = 0;
+            var somatoria = 0;
+            var campos = "";
+            if (grupo)
+            {
+                somatoria = 0;
+                campos = "";
+                count = 0;
+                $.ajax({
+                    url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorioFiltroGrupo") %>',
+                    type: "POST",
+                    data: "{ 'campo': '" + campo + "','filtro':'"+filtro+"','value':'" + value + "','grupo':'"+grupo+"'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data2) {
+                        var parsed = $.parseJSON(data2.d);
+
+                        $.each(parsed, function (i, jsondata) {
+
+                            somatoria += jsondata.value;
 
 
-                },
-                failure: function (response) {
-                    alert(response.d);
-                },
-                error: function (response) {
-                    alert(response.d);
-                }
-            });
+
+
+                        })
+
+                        $.each(parsed, function (i, jsondata) {
+                            if (count == 0) {
+                                campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo":"' + jsondata.grupo + '","campo":"' + campo + '","percent":"' + parseInt(((jsondata.value / somatoria) * 100)) + '%" }';
+                            }
+                            else {
+                                campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"grupo":"' + jsondata.grupo + '","campo":"' + campo + '","percent":"' + parseInt(((jsondata.value / somatoria) * 100)) + '%"}';
+                            }
+
+                            count++;
+
+
+                        })
+
+                        campos += "]";
+                        
+
+                        for (var i = 0; i < listvisual.length; i++) {
+                            if (listvisual[i][1] == div) {
+                                listvisual[i][0].data($.parseJSON(campos)).draw();
+                            }
+                        }
+
+                        
+
+
+
+                    },
+                    failure: function (response) {
+                       
+                        alert("Falha:"+response.d);
+                    },
+                    error: function (response) {
+                        alert("Erro:"+response.d);
+                    }
+                });
+
+            }
+            else
+            {
+                somatoria = 0;
+                campos = "";
+                $.ajax({
+                    url: '<%=ResolveUrl("~/Classes/service.asmx/GetRelatorioFiltro") %>',
+                    type: "POST",
+                    data: "{ 'campo': '" + campo + "','filtro': '" + filtro + "','value':'" + value + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data2) {
+                        var parsed = $.parseJSON(data2.d);
+
+                        $.each(parsed, function (i, jsondata) {
+
+                            somatoria += jsondata.value;
+
+
+
+
+                        })
+
+                        $.each(parsed, function (i, jsondata) {
+                            if (count == 0) {
+                                campos += '[{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"campo":"' + campo + '","percent":"' + parseInt(((jsondata.value / somatoria) * 100)) + '%" }';
+                            }
+                            else {
+                                campos += ',{"name": "' + jsondata.name + '","value": ' + jsondata.value + ',"campo":"' + campo + '","percent":"' + parseInt(((jsondata.value / somatoria) * 100)) + '%"}';
+                            }
+
+                            count++;
+
+
+                        })
+
+                        campos += "]";
+
+                     
+                           
+                       
+                        for (var i = 0; i < listvisual.length; i++) {
+                            if (listvisual[i][1] == div) {
+                                listvisual[i][0].data($.parseJSON(campos)).draw();
+                            }
+                        }
+                       
+
+
+
+
+                    },
+                    failure: function (response) {
+
+                        alert("Falha:" + response.d);
+                    },
+                    error: function (response) {
+                        alert("Erro:" + response.d);
+                    }
+                });
+
+               
+
+            }
+          
+
 
         }
 
 
-        dot.on("click", click);
-        function click(d) {
-            console.log(d.title); //considering dot has a title attribute
-        }
         
 
        

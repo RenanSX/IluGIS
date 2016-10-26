@@ -55,7 +55,7 @@
                         <li><a runat="server" href="register.aspx"  id="linkCadastro" class="btn"><i class="fa fa-gears"></i> Cadastrar usuário</a></li>                     
                         <li><a runat="server" href="gerenciamento.aspx"  id="linkRelatorios" class="btn"><i class="glyphicon glyphicon-list-alt"></i> Gerenciamento</a></li>
                         <li><a runat="server" href="planejamento.aspx"  id="linkPlanejamento" class="btn"><i class="glyphicon glyphicon-briefcase"></i> Planejamento</a></li>
-                        <li ><a href="logout.aspx" runat="server" id="linkSair" class="btn  disabled" onclick="DataHora()" >Sair</a></li>
+                        <li ><a href="logout.aspx" runat="server" id="linkSair" class="btn  disabled"  >Sair</a></li>
                         
                     </ul>
 
@@ -96,7 +96,7 @@
                     showInformation();
 
           });
-                function DataHora() {
+                <%--function DataHora() {
 
 
 
@@ -126,7 +126,7 @@
                         }
                     });
 
-                }
+                }--%>
 
             </script>
      <asp:ContentPlaceHolder ID="body" runat="server">
