@@ -128,7 +128,7 @@
         function GetGraph()
         {
             listvisual = [];
-            //Relat("TIPO_BRACO", "#braco", "pie", "Tipo de Braço", false);
+            Relat("TIPO_BRACO", "#braco", "pie", "Tipo de Braço", false);
             Relat("TIPO_POSTE", "#poste","pie","Tipo de Poste",false);        
             Relat("TIPO_RELE", "#rele","pie","Tipo de Relé",false);
             Relat("TIPO_REATOR", "#reator", "bar","Tipo de Reator",false);
@@ -257,13 +257,14 @@
                             .mouse({
                                 "click": function (d, viz) {
                                     
-                                    setTimeout(filtro("TIPO_BRACO", d.campo, d.name, "#braco", "pie", "Tipo de Braço", false), 500);
+                                    
                                     
                                     setTimeout(filtro("TIPO_POSTE", d.campo, d.name, "#poste", "pie", "Tipo de Poste", false), 500);
                                     setTimeout( filtro("TIPO_RELE", d.campo, d.name, "#rele", "pie", "Tipo de Relé", false), 500);
                                     setTimeout(filtro("TIPO_REATOR", d.campo, d.name, "#reator", "bar", "Tipo de Reator", false), 500);
                                     setTimeout(filtro("TIPO_ALIMENTACAO", d.campo, d.name, "#aliment", "bar", "Tipo de Alimentação", false), 500);                                    
-                                    setTimeout(filtro("TIPO_LUMINARIA", d.campo, d.name, "#viz", "tree_map", "Tipo de Luminária", "GRUPO_TIPO_LUMINARIA"), 400);
+                                    setTimeout(filtro("TIPO_LUMINARIA", d.campo, d.name, "#viz", "tree_map", "Tipo de Luminária", "GRUPO_TIPO_LUMINARIA"), 500);
+                                    setTimeout(filtro("TIPO_BRACO", d.campo, d.name, "#braco", "pie", "Tipo de Braço", false), 500);
                                     
                                                                      
                                    
@@ -293,9 +294,9 @@
                                          setTimeout(filtro("TIPO_POSTE", d.campo, d.name, "#poste", "pie", "Tipo de Poste", false), 500);
                                          setTimeout(filtro("TIPO_RELE", d.campo, d.name, "#rele", "pie", "Tipo de Relé", false), 500);
                                          setTimeout(filtro("TIPO_REATOR", d.campo, d.name, "#reator", "bar", "Tipo de Reator", false), 500);
-                                         setTimeout(filtro("TIPO_ALIMENTACAO", d.campo, d.name, "#aliment", "bar", "Tipo de Alimentação", false), 500);
-                                         setTimeout(filtro("TIPO_BRACO", d.campo, d.name, "#braco", "pie", "Tipo de Braço", false), 500);
+                                         setTimeout(filtro("TIPO_ALIMENTACAO", d.campo, d.name, "#aliment", "bar", "Tipo de Alimentação", false), 500);                                        
                                          setTimeout(filtro("TIPO_LUMINARIA", d.campo, d.name, "#viz", "tree_map", "Tipo de Luminária", "GRUPO_TIPO_LUMINARIA"), 400);
+                                         setTimeout(filtro("TIPO_BRACO", d.campo, d.name, "#braco", "pie", "Tipo de Braço", false), 500);
 
 
 
@@ -370,6 +371,8 @@
                         })
 
                         campos += "]";
+
+                         
                         
 
                         for (var i = 0; i < listvisual.length; i++) {
@@ -431,7 +434,10 @@
                         campos += "]";
 
                      
-                           
+
+                        if (campo == "TIPO_BRACO") {
+                            alert(campos);
+                        }
                        
                         for (var i = 0; i < listvisual.length; i++) {
                             if (listvisual[i][1] == div) {
